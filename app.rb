@@ -10,8 +10,14 @@ module Exercism
 
     def call
       FileUtils.cp(track_ignore_file, output_ignore_file) if File.exist?(track_ignore_file)
-      output = JSON.parse(`tokei #{solution_dir} --output json`, symbolize_names: true)
-      puts output[:Total][:code]
+      report = JSON.parse(`tokei #{solution_dir} --output json`, symbolize_names: true)
+      output = {
+        code: report[:Total][:code],
+        blanks: report[:Total][:blanks],
+        comments: report[:Total][:comments],
+        files: report[:Total][:children].size
+      }
+      File.write(output_counts_file, output.to_json) 
       FileUtils.rm(output_ignore_file) if track_ignore_file if File.exist?(output_ignore_file)
     end
 
@@ -41,7 +47,7 @@ module Exercism
     end
 
     def output_ignore_file 
-      File.join(solution_dir, ".tokeignore")      
+      File.join(solution_dir, ".tokeignore")
     end
 
     memoize
