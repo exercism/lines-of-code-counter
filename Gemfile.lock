@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.6.0)
+    mandate (0.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  mandate
+
+BUNDLED WITH
+   2.1.4
