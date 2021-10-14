@@ -1,4 +1,4 @@
-# Ignore everything by default
+# Ignore everything
 *
 
 # Un-ignore (include) .cs files
