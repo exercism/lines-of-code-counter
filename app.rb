@@ -15,7 +15,12 @@ module Exercism
         code: report[:Total][:code],
         blanks: report[:Total][:blanks],
         comments: report[:Total][:comments],
-        files: report[:Total][:children].each_value.map(&:size).sum
+        files: report[:Total][:children].values
+          .flatten
+          .map{|c|c[:name]
+          .delete_prefix("#{solution_dir}/")}
+          .sort
+          .to_a
       }
       File.write(output_counts_file, output.to_json) 
       FileUtils.rm(output_ignore_file)

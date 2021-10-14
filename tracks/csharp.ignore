@@ -1,3 +1,5 @@
-*.cs
-!Program.cs
-!AssemblyInfo.cs
+# Ignore everything
+*
+
+# Un-ignore .cs files
+!*.cs

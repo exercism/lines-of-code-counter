@@ -1,2 +1,5 @@
+# Ignore everything
 *
+
+# Un-ignore .fs files
 !*.fs

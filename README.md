@@ -8,14 +8,13 @@ It takes a solution and counts its lines of code using [tokei](https://github.co
 ## Choosing which files to include
 
 We want to _only_ count the LoC of files that the student wrote.
-The following files should thus always be ignored:
+We thus always ignore the following files:
 
 - Test files (the `files.test` array in the exercise `.meta/config.json` file)
 - Editor files (the `files.editor` array in the exercise `.meta/config.json` file)
 - Example files (the `files.example` array in the exercise `.meta/config.json` file)
 - Exemplar files (the `files.exemplar` array in the exercise `.meta/config.json` file)
-- Documentation files (e.g. `README.md` or `HINTS.md`)
-- Configuration files (e.g. `.exercism/metadata.json`)
+- Files in hidden directories (e.g. `.docs/instructions.md` or `.meta/config.json`)
 
 ### Default configuration
 
@@ -39,33 +38,33 @@ We'll automatically exclude them for you.
 
 #### Example
 
-This is what an example track-specific configuration can look like:
-
-The starting point is to ignore all files:
+Here is an example track-specific configuration:
 
 ```gitignore
 # Ignore everything
 *
+
+# Un-ignore .cs files
+!*.fs
 ```
 
-The next step is to then selectively include all files that _could_ be solution files.
-That could look like this:
+Before we actually count the lines of code, we'll automatically add the above-mentioned exclusions:
 
 ```gitignore
-# Un-ignore (include) .cs files
-!*.cs
+# Ignore everything
+*
+
+# Un-ignore .cs files
+!*.fs
+
+# Ignore files.test files
+AnagramTests.fs
+
+# Ignore files.example files
+.meta/Example.fs
 ```
 
-At this point, usually the only thing left to do is to re-ignore the test files:
-
-```gitignore
-# Ignore test files
-*Tests.cs
-```
-
-With just these three rules, we now count the LoC of _all_ solution files, excluding the test files.
-
-Note that we'll still exclude the
+We'll then count the LoC using this configuration file to determine which files to count.
 
 ## Running the tests
 
