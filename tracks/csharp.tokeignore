@@ -1,0 +1,13 @@
+# Ignore everything by default
+*
+
+# Un-ignore (include) .cs files
+!*.cs
+
+# Ignore test files
+*Tests.cs
+*Test.cs
+
+# Additional files to ignore
+Program.cs
+AssemblyInfo.cs

@@ -1,0 +1,13 @@
+# Ignore everything by default
+*
+
+# Un-ignore (include) .fs files
+!*.fs
+
+# Ignore test files
+*Tests.fs
+*Test.fs
+
+# Additional files to ignore
+Program.fs
+AssemblyInfo.fs
