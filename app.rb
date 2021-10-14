@@ -56,19 +56,13 @@ module Exercism
     end
 
     def output_ignore
-
-      i = File.read(track_file)
-
       [
+        *File.readlines(track_file),
         *exercise_config[:files][:test].to_a,
         *exercise_config[:files][:example].to_a,
         *exercise_config[:files][:exemplar].to_a,
         *exercise_config[:files][:editor].to_a
-      ].compact.each do |j|
-        i += "#{j}\n"
-      end
-
-      i
+      ].compact.join("\n")
     end
 
     def output_ignore_file 
