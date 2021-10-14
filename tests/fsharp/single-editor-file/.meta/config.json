@@ -11,9 +11,10 @@
     "wolf99"
   ],
   "files": {
-    "solution": ["Anagram.fs", "Helper.fs"],
+    "solution": ["Anagram.fs"],
     "test": ["AnagramTests.fs"],
-    "example": [".meta/Example.fs"]
+    "example": [".meta/Example.fs"],
+    "editor": ["TestHelper.fs"]
   },
   "source": "Inspired by the Extreme Startup game",
   "source_url": "https://github.com/rchatley/extreme_startup"

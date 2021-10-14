@@ -10,15 +10,16 @@ It takes a solution and counts its lines of code using [tokei](https://github.co
 We want to _only_ count the LoC of files that the student wrote.
 The following files should thus always be ignored:
 
-- Test files (as listed in the `files.test` array of the exercise's `.meta/config.json` file)
-- Editor files (as listed in the `files.editor` array of the exercise's `.meta/config.json` file)
+- Test files (the `files.test` array in the exercise `.meta/config.json` file)
+- Editor files (the `files.editor` array in the exercise `.meta/config.json` file)
+- Example files (the `files.example` array in the exercise `.meta/config.json` file)
+- Exemplar files (the `files.exemplar` array in the exercise `.meta/config.json` file)
 - Documentation files (e.g. `README.md` or `HINTS.md`)
 - Configuration files (e.g. `.exercism/metadata.json`)
 
 ### Default configuration
 
-The default configuration only counts the LoC of solution files.
-These files are listed in the `files.solution` array of the exercise's `.meta/config.json` file.
+The default configuration only counts the LoC of solution files (the `files.solution` array in the exercise `.meta/config.json` file).
 
 While this does indeed exclude the above-mentioned files, it doesn't work well for:
 
@@ -33,7 +34,8 @@ To override the default configuration, each track can define a config file named
 This config file defines the rules to determine which files' code should be counted for that track.
 The files use the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
 
-You don't have to explicitly exclude the above-mentioned test/editor/documentation/configuration files. We'll automatically exclude them for you.
+You don't have to explicitly exclude the above-mentioned test/editor/example/exemplar/documentation/configuration files.
+We'll automatically exclude them for you.
 
 #### Example
 
@@ -63,7 +65,7 @@ At this point, usually the only thing left to do is to re-ignore the test files:
 
 With just these three rules, we now count the LoC of _all_ solution files, excluding the test files.
 
-Note that we'll still exclude the 
+Note that we'll still exclude the
 
 ## Running the tests
 

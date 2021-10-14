@@ -9,16 +9,16 @@ module Exercism
     initialize_with :event, :content
 
     def call
-      FileUtils.cp(track_ignore_file, output_ignore_file) if File.exist?(track_ignore_file)
+      File.write(output_ignore_file, output_ignore)       
       report = JSON.parse(`tokei #{solution_dir} --output json`, symbolize_names: true)
       output = {
         code: report[:Total][:code],
         blanks: report[:Total][:blanks],
         comments: report[:Total][:comments],
-        files: report[:Total][:children].size
+        files: report[:Total][:children].each_value.map(&:size).sum
       }
       File.write(output_counts_file, output.to_json) 
-      FileUtils.rm(output_ignore_file) if track_ignore_file if File.exist?(output_ignore_file)
+      FileUtils.rm(output_ignore_file)
     end
 
     def self.process(event:,context:)
@@ -42,8 +42,33 @@ module Exercism
       File.join(output_dir, "counts.json")
     end
 
-    def track_ignore_file
-      "tracks/#{track}.tokeignore"
+    def track_file
+      "tracks/#{track}.ignore"
+    end
+    
+    def exercise_config_file
+      File.join(solution_dir, ".meta", "config.json")
+    end
+
+    memoize
+    def exercise_config
+      JSON.parse(File.read(exercise_config_file), symbolize_names: true)
+    end
+
+    def output_ignore
+
+      i = File.read(track_file)
+
+      [
+        *exercise_config[:files][:test].to_a,
+        *exercise_config[:files][:example].to_a,
+        *exercise_config[:files][:exemplar].to_a,
+        *exercise_config[:files][:editor].to_a
+      ].compact.each do |j|
+        i += "#{j}\n"
+      end
+
+      i
     end
 
     def output_ignore_file 

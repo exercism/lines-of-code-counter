@@ -1,3 +1,4 @@
 node_modules/
 script.rb
-counts.json
+tests/**/counts.json
+tests/**/.tokeignore
