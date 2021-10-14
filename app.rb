@@ -1,5 +1,6 @@
 require "mandate"
 require "json"
+require "fileutils"
 
 module Exercism
   class CountLinesOfCode
@@ -8,7 +9,10 @@ module Exercism
     initialize_with :event, :content
 
     def call
-      system("tokei #{solution_dir}")
+      FileUtils.cp(track_ignore_file, output_ignore_file) if File.exist?(track_ignore_file)
+      output = JSON.parse(`tokei #{solution_dir} --output json`, symbolize_names: true)
+      puts output[:Total][:code]
+      FileUtils.rm(output_ignore_file) if track_ignore_file if File.exist?(output_ignore_file)
     end
 
     def self.process(event:,context:)
@@ -28,8 +32,16 @@ module Exercism
       body[:output]
     end
 
-    def ignore_file
-      File.read("tracks/#{track}.tokeignore")
+    def output_counts_file
+      File.join(output_dir, "counts.json")
+    end
+
+    def track_ignore_file
+      "tracks/#{track}.tokeignore"
+    end
+
+    def output_ignore_file 
+      File.join(solution_dir, ".tokeignore")      
     end
 
     memoize
