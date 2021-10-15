@@ -1,0 +1,5 @@
+# Ignore everything
+*
+
+# Un-ignore .apl files
+!*.apl

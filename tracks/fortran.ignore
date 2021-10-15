@@ -1,0 +1,5 @@
+# Ignore everything
+*
+
+# Un-ignore .f90 files
+!*.f90

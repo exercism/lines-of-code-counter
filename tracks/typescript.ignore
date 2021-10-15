@@ -1,0 +1,5 @@
+# Ignore everything
+*
+
+# Un-ignore .ts files
+!*.ts

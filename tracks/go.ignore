@@ -1,0 +1,5 @@
+# Ignore everything
+*
+
+# Un-ignore .go files
+!*.go
