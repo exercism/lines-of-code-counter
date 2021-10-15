@@ -6,25 +6,25 @@
 # Arguments:
 # $1: track slug
 # $2: exercise slug
-# $3: absolute path to solution folder
-# $4: absolute path to output directory
+# $3: path to solution folder
+# $4: path to output directory
 
 # Output:
 # Count the lines of code of the solution in the passed-in output directory.
 
 # Example:
-# ./bin/run-in-docker.sh ruby two-fer /absolute/path/to/two-fer/solution/folder/ /absolute/path/to/output/directory/
+# ./bin/run-in-docker.sh ruby two-fer path/to/solution/folder/ path/to/output/directory/
 
 # If any required arguments is missing, print the usage and exit
 if [[ $# -lt 4 ]]; then
-    echo "usage: ./bin/run.sh track-slug exercise-slug /absolute/path/to/two-fer/solution/folder/ /absolute/path/to/output/directory/"
+    echo "usage: ./bin/run-in-docker.sh track-slug exercise-slug path/to/solution/folder/ path/to/output/directory/"
     exit 1
 fi
 
 track_slug="${1}"
 exercise_slug="${2}"
-solution_dir="${3%/}"
-output_dir="${4%/}"
+solution_dir=$(realpath "${3%/}")
+output_dir=$(realpath "${4%/}")
 results_file="${output_dir}/counts.json"
 container_port=9876
 
