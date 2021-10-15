@@ -46,6 +46,8 @@ container_id=$(docker run \
 
 # Call the function with the correct JSON event payload
 event_json=$(jq -n --arg t "${track_slug}" --arg e "${exercise_slug}" '{track: $t, exercise: $e, solution: "/solution", output: "/output"}')
-curl -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
+curl --silent --output /dev/null -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 
-docker stop $container_id
+docker stop $container_id > /dev/null
+
+echo "${track_slug}/${exercise_slug}: done"
