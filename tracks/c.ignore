@@ -1,6 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .c and .h files
-!*.c
-!*.h

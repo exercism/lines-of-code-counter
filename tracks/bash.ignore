@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .sh files
-!*.sh

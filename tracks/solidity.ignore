@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .sol files
-!*.sol

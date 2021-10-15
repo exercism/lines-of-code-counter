@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .py files
-!*.py

@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .el files
-!*.el

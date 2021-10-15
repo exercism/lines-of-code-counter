@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .ps1 files
-!*.ps1

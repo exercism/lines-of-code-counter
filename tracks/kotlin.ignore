@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .kt files
-!*.kt

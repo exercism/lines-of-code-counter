@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .pony files
-!*.pony

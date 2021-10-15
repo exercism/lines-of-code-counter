@@ -14,12 +14,13 @@ class IgnoreFile
   
   memoize 
   def track_specific_rules?
-    File.exist?(track_ignore_filepath)
+    File.exist?(track_include_filepath)
   end
 
   def track_specific_rules
     [
-      *File.readlines(track_ignore_filepath),
+      "*",
+      *File.readlines(track_include_filepath).map {|rule| include_to_exclude(rule)},
       *exercise.test_files,
       *exercise.example_files,
       *exercise.exemplar_files,
@@ -31,7 +32,7 @@ class IgnoreFile
   def default_rules
     [
       "*",
-      *exercise.solution_files.map {|s|"!#{s}"}
+      *exercise.solution_files.map {|rule| include_to_exclude(rule)},
     ]    
   end
 
@@ -43,7 +44,15 @@ class IgnoreFile
   end
 
   private
-  def track_ignore_filepath
-    "tracks/#{exercise.track}.ignore"
-  end  
+  def track_include_filepath
+    "tracks/#{exercise.track}.include"
+  end
+
+  def include_to_exclude(rule)
+    rule.strip!
+
+    return rule if rule.empty? || rule.start_with?('#')
+
+    rule.start_with?('!') ? rule.delete_prefix('!') : "!#{rule}"
+  end
 end

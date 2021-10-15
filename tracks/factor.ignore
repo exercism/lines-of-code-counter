@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .factor files
-!*.factor

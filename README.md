@@ -30,9 +30,9 @@ Therefore, each track can define a track-specific configuration to allow countin
 
 ### Track-specific configuration
 
-To override the default configuration, each track can define a config file named `<slug>.ignore` inside the `tracks`directory (e.g. [`tracks/csharp.ignore`](./tracks/ruby.ignore)).
+To override the default configuration, each track can define a config file named `<slug>.include` inside the `tracks`directory (e.g. [`tracks/csharp.include`](./tracks/csharp.include)).
 This config file defines the rules to determine which files' code should be counted for that track.
-The files use the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
+The files use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
 
 You don't have to explicitly exclude the above-mentioned test/editor/example/exemplar/documentation/configuration files.
 We'll automatically exclude them for you.
@@ -42,33 +42,17 @@ We'll automatically exclude them for you.
 Here is an example track-specific configuration:
 
 ```gitignore
-# Ignore everything
-*
-
-# Un-ignore .fs files
-!*.fs
+*.fs
 ```
 
-The first rule ignores _all_ files.
-The second rule then un-ignores all `.fs` files.
-We thus only counts LoC in files with the `.fs` extension.
-
-While this works well, the above rules would include the test files, as they also have the `.fs` extension.
-You don't have to manually exclude the tests files though, as we automatically add rules to exclude the exercise's test/editor/example/exemplar files.
-For the `anagram` exercise, the final ignore file that we'll use will look like:
+With this configuration, only the LoC of files with the `.fs` extension are counted.
+Even though test files also have the same `.fs` extension, you don't have to manually exclude them as we automatically add exclude the exercise's test/editor/example/exemplar files.
+For the `anagram` exercise, the resulting include file that is used looks like:
 
 ```gitignore
-# Ignore everything
-*
-
-# Un-ignore .cs files
-!*.fs
-
-# Ignore files.test files
-AnagramTests.fs
-
-# Ignore files.example files
-.meta/Example.fs
+*.fs
+!AnagramTests.fs
+!.meta/Example.fs
 ```
 
 We'll then count the LoC using this configuration file to determine the actual LoC.
@@ -82,8 +66,7 @@ As an example, the F# track used to have test files that ended with `Test.fs` (s
 To exclude the old test files from the LoC count, we can append the following line to the F# track's configuration file:
 
 ```gitignore
-# Ignore old test files
-*Test.fs
+!*Test.fs
 ```
 
 ## Run the Lines of Code Counter

@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .elm files
-!*.elm

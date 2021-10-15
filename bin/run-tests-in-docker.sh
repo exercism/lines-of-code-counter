@@ -42,8 +42,8 @@ for test_dir in tests/${track_slug}/${exercise_slug}; do
     bin/run-in-docker.sh "${track_name}" "${exercise_name}" "${test_dir_path}"
 
     # Ensure there is a trailing newline in both files
-    sed -i -e '$a\' "${response_file_path}"
-    sed -i -e '$a\' "${expected_response_file_path}"
+    sed -i '' -e '$a\' "${response_file_path}"
+    sed -i '' -e '$a\' "${expected_response_file_path}"
 
     echo "${track_name}/${exercise_name}: comparing response.json to expected_response.json"
     diff "${response_file_path}" "${expected_response_file_path}"

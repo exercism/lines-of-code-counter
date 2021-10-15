@@ -1,5 +1,0 @@
-# Ignore everything
-*
-
-# Un-ignore .hs files
-!*.hs
