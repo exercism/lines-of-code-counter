@@ -12,15 +12,24 @@
 # Example:
 # ./bin/run-tests-in-docker.sh
 
-# Build the Docker image
-docker build --rm -t exercism/lines-of-code-counter .
+exit_code=0
 
-# Run the Docker image using the settings mimicking the production environment
-docker run \
-    --network none \
-    --read-only \
-    --mount type=bind,src="${PWD}/tests",dst=/opt/test-runner/tests \
-    --mount type=tmpfs,dst=/tmp \
-    --workdir /opt/test-runner \
-    --entrypoint /opt/test-runner/bin/run-tests.sh \
-    exercism/lines-of-code-counter
+# Iterate over all test directories
+for test_dir in tests/*/*; do
+    track_name=$(basename $(realpath "${test_dir}/../"))
+    exercise_name=$(basename "${test_dir}")
+    test_dir_path=$(realpath "${test_dir}")
+    counts_file_path="${test_dir_path}/counts.json"
+    expected_counts_file_path="${test_dir_path}/expected_counts.json"
+
+    bin/run-in-docker.sh "${track_name}" "${exercise_name}" "${test_dir_path}" "${test_dir_path}"
+
+    echo "${track_name}/${exercise_name}: comparing counts.json to expected_counts.json"
+    diff "${counts_file_path}" "${expected_counts_file_path}"
+
+    if [ $? -ne 0 ]; then
+        exit_code=1
+    fi
+done
+
+exit ${exit_code}
