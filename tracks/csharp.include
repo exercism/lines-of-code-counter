@@ -1,5 +1,2 @@
-# Include .cs files
 *.cs
-
-# Ignore old test files
 !*Test.cs
