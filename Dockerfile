@@ -17,7 +17,7 @@ ENV GEM_HOME=${LAMBDA_TASK_ROOT}
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY app.rb .
+COPY lib/ .
 COPY tracks/ tracks/
 
 CMD [ "app.Exercism::CountLinesOfCode.process" ]
