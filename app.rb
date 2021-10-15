@@ -64,13 +64,24 @@ module Exercism
     end
 
     def output_ignore
-      [
-        *File.readlines(track_file),
-        *exercise_config[:files][:test].to_a,
-        *exercise_config[:files][:example].to_a,
-        *exercise_config[:files][:exemplar].to_a,
-        *exercise_config[:files][:editor].to_a
-      ].compact.join("\n")
+      if File.exist?(track_file)
+        [
+          *File.readlines(track_file),
+          *exercise_config[:files][:test].to_a,
+          *exercise_config[:files][:example].to_a,
+          *exercise_config[:files][:exemplar].to_a,
+          *exercise_config[:files][:editor].to_a,
+          "counts.json",
+          "expected_counts.json"
+        ].compact.join("\n")
+      else
+        [
+          "*",
+          *exercise_config[:files][:solution].to_a.map {|s|"!#{s}"},
+          "counts.json",
+          "expected_counts.json"
+        ].compact.join("\n")
+      end
     end
 
     def output_ignore_file
