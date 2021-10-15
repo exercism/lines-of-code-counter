@@ -1,4 +1,3 @@
 node_modules/
 tests/
-bin/run-tests-in-docker.sh
-bin/run-in-docker.sh
+bin/
