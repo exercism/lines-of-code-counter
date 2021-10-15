@@ -1,0 +1,63 @@
+name: Push Docker images to DockerHub and ECR
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  multiple-registries:
+    runs-on: ubuntu-latest
+
+    env:
+      ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@154c24e1f33dbb5865a021c99f1318cfebf27b32
+
+      - name: Cache Docker layers
+        uses: actions/cache@0781355a23dac32fd3bac414512f4b903437991a
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to DockerHub
+        uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Login to ECR
+        uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
+        with:
+          registry: ${{ env.ECR_REGISTRY }}
+          username: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_LAMBDA_SECRET_ACCESS_KEY }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@0db984c1826869dcd0740ff26ff75ff543238fd9
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}:production
+            ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}
+          # ${{ github.event.repository.full_name }}:latest
+          # ${{ github.event.repository.full_name }}:${{ github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: deploy lambda
+        uses: appleboy/lambda-action@1e05c1377056f21ebb2ce69b910bc16b943c2a66
+        with:
+          aws_access_key_id: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_LAMBDA_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: snippet_extractor
+          image_uri: ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}:production
