@@ -1,9 +1,10 @@
 class Exercise
   include Mandate
 
-  attr_reader :dir
+  attr_reader :track, :dir
 
-  def initialize(dir)
+  def initialize(track, dir)
+    @track = track
     @dir = dir
   end
 

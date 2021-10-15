@@ -1,7 +1,7 @@
 class IgnoreFile
   include Mandate
 
-  initialize_with :track, :exercise
+  initialize_with :exercise
 
   def filepath
     File.join(exercise.dir, ".tokeignore")
@@ -24,8 +24,7 @@ class IgnoreFile
       *exercise.example_files,
       *exercise.exemplar_files,
       *exercise.editor_files,
-      "counts.json",
-      "expected_counts.json"
+      *test_file_rules
     ]    
   end
 
@@ -36,8 +35,15 @@ class IgnoreFile
     ]    
   end
 
+  def test_file_rules
+    [
+      "response.json",
+      "expected_response.json"
+    ]    
+  end
+
   private
   def track_ignore_filepath
-    "tracks/#{track}.ignore"
+    "tracks/#{exercise.track}.ignore"
   end  
 end
