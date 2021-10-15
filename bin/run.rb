@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require("./app.rb")
+require("./app")
 
 event = {
   "track" => ARGV[0],
