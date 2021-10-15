@@ -3,6 +3,7 @@ require "json"
 require "fileutils"
 
 module Exercism
+  # TODO: refactor (extract classes, rename to handler)
   class CountLinesOfCode
     include Mandate
 
@@ -32,15 +33,15 @@ module Exercism
 
     private
     def track
-      body[:track]
+      event["track"]
     end
 
     def solution_dir
-      body[:solution]
+      event["solution"]
     end
 
     def output_dir
-      body[:output]
+      event["output"]
     end
 
     def output_counts_file
@@ -72,11 +73,6 @@ module Exercism
 
     def output_ignore_file 
       File.join(solution_dir, ".tokeignore")
-    end
-
-    memoize
-    def body
-      JSON.parse(event['body'], symbolize_names: true)
     end
   end
 end    
