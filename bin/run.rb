@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require("./lib/app")
+require("./lib/lines_of_code_counter")
 
 event = {
   "track" => ARGV[0],
@@ -8,4 +8,4 @@ event = {
   "solution" => ARGV[2],
   "output" => ARGV[3]
 }
-Exercism::CountLinesOfCode.process(event: event, context: {})
+LinesOfCodeCounter.process(event: event, context: {})

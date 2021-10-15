@@ -36,6 +36,8 @@ for test_dir in tests/${track_slug}/${exercise_slug}; do
     counts_file_path="${test_dir_path}/counts.json"
     expected_counts_file_path="${test_dir_path}/expected_counts.json"
 
+    rm -rf "${counts_file_path}"
+
     bin/run.sh "${track_name}" "${exercise_name}" "${test_dir_path}" "${test_dir_path}"
 
     echo "${track_name}/${exercise_name}: comparing counts.json to expected_counts.json"
