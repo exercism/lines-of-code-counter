@@ -21,6 +21,11 @@ if [[ $# -lt 4 ]]; then
     exit 1
 fi
 
+track_slug="${1}"
+exercise_slug="${2}"
+solution_dir="${3%/}"
+output_dir="${4%/}"
+
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
