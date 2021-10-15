@@ -66,6 +66,22 @@ AnagramTests.fs
 
 We'll then count the LoC using this configuration file to determine which files to count.
 
+#### Renamed files
+
+It's worth noting that older solutions might be using a different naming scheme than specified in the `files` key in the `.meta/config.json` file.
+If your track has done a file renaming at some point, consider
+
+##### Example
+
+The F# track used to have test files that ended with `Test.fs` (singular), but nowadays uses `Tests.fs` (plural).
+The files in the `files.test` key all end with `Tests.fs` (the file was created _after_ the rename), but old solutions will have test files that don't match those file names.
+To prevent these test files to be included in the LoC count, we can append the following line to the F# track's configuration file:
+
+```gitignore
+# Ignore old test files
+*Test.fs
+```
+
 ## Running the tests
 
 TODO

@@ -3,3 +3,6 @@
 
 # Un-ignore .cs files
 !*.cs
+
+# Ignore old test files
+*Test.cs

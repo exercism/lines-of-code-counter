@@ -3,3 +3,6 @@
 
 # Un-ignore .fs files
 !*.fs
+
+# Ignore old test files
+*Test.fs
