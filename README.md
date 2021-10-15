@@ -17,7 +17,7 @@ As we only want to count the LoC of files the student wrote, we ignore:
 
 The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
 
-### Default configuration
+## Default configuration
 
 The default configuration only counts the LoC of _solution files_ (the `files.solution` array in the exercise `.meta/config.json` file).
 
@@ -28,16 +28,16 @@ While this does indeed exclude the above-mentioned files, it doesn't work well f
 
 Therefore, each track can define a track-specific configuration to allow counting LoC in non-solution files.
 
-### Track-specific configuration
+## Track-specific configuration
 
-To override the default configuration, each track can define a config file named `<slug>.include` inside the `tracks`directory (e.g. [`tracks/csharp.include`](./tracks/csharp.include)).
-This config file defines the rules to determine which files' code should be counted for that track.
-The files use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
+To override the default configuration, each track can define a config file named `<slug>.include` inside the `tracks` directory (e.g. [`tracks/csharp.include`](./tracks/csharp.include)).
+This config file defines the rules for which files to include when counting LoC for that track.
+The include files can use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
 
 You don't have to explicitly exclude the above-mentioned test/editor/example/exemplar/documentation/configuration files.
 We'll automatically exclude them for you.
 
-#### Example
+### Example
 
 Here is an example track-specific configuration:
 
@@ -46,18 +46,9 @@ Here is an example track-specific configuration:
 ```
 
 With this configuration, only the LoC of files with the `.fs` extension are counted.
-Even though test files also have the same `.fs` extension, you don't have to manually exclude them as we automatically add exclude the exercise's test/editor/example/exemplar files.
-For the `anagram` exercise, the resulting include file that is used looks like:
+As mentioned, test files are automatically excluded. Therefore, the count won't include the tests files even though they also have the `.fs` extension.
 
-```gitignore
-*.fs
-!AnagramTests.fs
-!.meta/Example.fs
-```
-
-We'll then count the LoC using this configuration file to determine the actual LoC.
-
-#### Renamed files
+### Renamed files
 
 It's worth noting that older solutions might be using a different naming scheme than specified in the `files` key in the `.meta/config.json` file.
 If your track has changed the names of the test or editor files, consider adding rules to exclude old files that should _not_ be counted.
