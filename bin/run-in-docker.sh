@@ -26,7 +26,6 @@ exercise_slug="${2}"
 solution_dir="${3%/}"
 output_dir="${4%/}"
 results_file="${output_dir}/counts.json"
-script_file="script.rb"
 container_port=9876
 
 # Create the output directory if it doesn't exist

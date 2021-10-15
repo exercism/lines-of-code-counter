@@ -1,4 +1,3 @@
 node_modules/
-script.rb
 tests/**/counts.json
 tests/**/.tokeignore
