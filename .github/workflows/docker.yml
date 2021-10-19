@@ -48,8 +48,8 @@ jobs:
           tags: |
             ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}:production
             ${{ env.ECR_REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}
-          # ${{ github.event.repository.full_name }}:latest
-          # ${{ github.event.repository.full_name }}:${{ github.sha }}
+            ${{ github.event.repository.full_name }}:latest
+            ${{ github.event.repository.full_name }}:${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
