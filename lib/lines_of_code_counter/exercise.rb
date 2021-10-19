@@ -27,7 +27,7 @@ class Exercise
   def example_files
     config[:files][:example].to_a
   end
-  
+
   private
   memoize
   def config

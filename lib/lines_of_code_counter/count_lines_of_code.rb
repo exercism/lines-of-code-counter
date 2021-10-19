@@ -28,7 +28,7 @@ class CountLinesOfCode
   def blanks
     report[:Total][:blanks]
   end
-  
+
   def comments
     report[:Total][:comments]
   end
@@ -36,7 +36,7 @@ class CountLinesOfCode
   def files
     report[:Total][:children].values.
       flatten.
-      map {|child| child[:name].delete_prefix("#{exercise.dir}/") }.
+      map { |child| child[:name].delete_prefix("#{exercise.dir}/") }.
       sort.
       to_a
   end

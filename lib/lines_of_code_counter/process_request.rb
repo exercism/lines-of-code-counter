@@ -3,7 +3,7 @@ class ProcessRequest
 
   initialize_with :event, :content
 
-  def call    
+  def call
     counts = CountLinesOfCode.(exercise)
     counts_json = counts.to_json
 
@@ -15,7 +15,7 @@ class ProcessRequest
       },
       isBase64Encoded: false,
       body: counts_json
-    }  
+    }
   end
 
   def exercise

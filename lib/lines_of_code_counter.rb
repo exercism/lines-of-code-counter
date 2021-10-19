@@ -6,7 +6,7 @@ require "./lib/lines_of_code_counter/exercise"
 require "./lib/lines_of_code_counter/ignore_file"
 require "./lib/lines_of_code_counter/process_request"
 
-module LinesOfCodeCounter  
+module LinesOfCodeCounter
   def self.process(event:, context:)
     ProcessRequest.(event, context)
   end
