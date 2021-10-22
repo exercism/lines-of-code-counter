@@ -7,27 +7,22 @@ It takes a solution and counts its lines of code.
 
 ## Implementation
 
-By default, we'll only count LoC in the files the student submitted.
-Should the student also submit one of the test files, we'll ignore those.
+By default, we'll only count the LoC of files submitted by the student.
+If the student submitted a test file (which we identify via the `files.test` array in the exercise's `.meta/config.json` file), we'll ignore those.
 
-While this works well for almost any submission, it doesn't work for older solutions that used a different test naming scheme.
-TODO: expand
+### Ignore additional files
 
-- Old solutions which files were named differently
-- Solutions where the student added additional files
+While this works well for most submissions, it doesn't work if the submission's exercise has test files with a different naming scheme than the files listed in the `.meta/config.json` file.
+This can only really occur for submission that are linked to older exercises which didn't _have_ a `.meta/config.json` file at the time.
 
-Therefore, each track can define a track-specific configuration to allow counting LoC in non-solution files.
+To ignore additional files (like the above test files) from being included in the LoC count, each track can define a `<slug>.ignore` file inside the `tracks` directory (e.g. [`tracks/csharp.ignore`](./tracks/csharp.ignore)).
+Inside this file, you can define rules to exclude certain file paths from the LoC count.
+The rules are matched using [File.fnmatch](https://ruby-doc.org/stdlib-2.6.1/libdoc/pathname/rdoc/Pathname.html#method-i-fnmatch), which uses standard globbing syntax.
 
-## Track-specific configuration
-
-To override the default configuration, each track can define a config file named `<slug>.include` inside the `tracks` directory (e.g. [`tracks/csharp.include`](./tracks/csharp.include)).
-This config file defines the rules for which files to include when counting LoC for that track.
-The include files can use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
-
-To exclude the old test files from the LoC count, we can append the following line to the F# track's configuration file:
+As an example, the C# track excludes old `*Test.cs` files (renamed since to `*Tests.cs`) using the following ignore file:
 
 ```gitignore
-!*Test.fs
+*Test.cs
 ```
 
 ## Run the Lines of Code Counter
@@ -35,9 +30,9 @@ To exclude the old test files from the LoC count, we can append the following li
 To count the lines of code of an arbitrary solution, do the following:
 
 1. Open a terminal in the project's root
-2. Run `./bin/run.sh <track-slug> <exercise-slug> <solution-dir> <output-dir>`
+2. Run `./bin/run.sh <track-slug> <submission-dir>`
 
-Once the test runner has finished, its results will be written to `<output-dir>/response.json`.
+Once the test runner has finished, its results will be written to `<submission-dir>/response.json`.
 
 ## Run the Lines of Code Counter on a solution using Docker
 
@@ -46,9 +41,9 @@ _This script is provided for testing purposes, as it mimics how the Lines of Cod
 To count the lines of code of an arbitrary solution using the Docker image, do the following:
 
 1. Open a terminal in the project's root
-2. Run `./bin/run-in-docker.sh <track-slug> <exercise-slug> <solution-dir> <output-dir>`
+2. Run `./bin/run-in-docker.sh <track-slug> <submission-dir>`
 
-Once the test runner has finished, its results will be written to `<output-dir>/response.json`.
+Once the test runner has finished, its results will be written to `<submission-dir>/response.json`.
 
 ## Run the tests
 
