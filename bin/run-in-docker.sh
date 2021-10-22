@@ -5,24 +5,23 @@
 
 # Arguments:
 # $1: track slug
-# $2: submission uuid
-# $3: path to submission directory
+# $2: path to submission directory
 
 # Output:
 # Count the lines of code of the submission in the passed-in submission directory.
 
 # Example:
-# ./bin/run-in-docker.sh ruby aaaa-bbbb-cccc path/to/submission/directory/
+# ./bin/run-in-docker.sh ruby path/to/submission/directory/
 
 # If any required arguments is missing, print the usage and exit
-if [[ $# -lt 3 ]]; then
-    echo "usage: ./bin/run-in-docker.sh track-slug submission-uuid path/to/submission/directory/"
+if [[ $# -lt 2 ]]; then
+    echo "usage: ./bin/run-in-docker.sh track-slug path/to/submission/directory/"
     exit 1
 fi
 
 track_slug="${1}"
-submission_uuid="${2}"
-submission_dir=$(realpath "${3%/}")
+submission_dir=$(realpath "${2%/}")
+submission_uuid=$(basename "${submission_dir}")
 submission_files=$(find ${submission_dir} -type f ! -name *response.json -printf "%P\n" | xargs)
 response_file="${submission_dir}/response.json"
 container_port=9876
