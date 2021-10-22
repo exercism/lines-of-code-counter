@@ -6,7 +6,7 @@
 
 # Arguments:
 # $1: track slug (optional)
-# $2: exercise slug (optional)
+# $2: submission slug (optional)
 
 # Output:
 # Outputs the diff of the expected counts against the actual counts
@@ -18,7 +18,7 @@
 # Example running tests of a single track:
 # ./bin/run-tests.sh csharp
 
-# Example running tests of a single track and a single exercise:
+# Example running tests of a single track and a single submission:
 # ./bin/run-tests.sh csharp single-solution-file
 
 shopt -s extglob
@@ -41,8 +41,8 @@ for test_dir in tests/${track_slug}/${exercise_slug}; do
     bin/run.sh "${track_name}" "${exercise_name}" "${test_dir_path}"
 
     # Ensure there is a trailing newline in both files
-    sed -i '' -e '$a\' "${response_file_path}"
-    sed -i '' -e '$a\' "${expected_response_file_path}"
+    sed -i -e '$a\' "${response_file_path}"
+    sed -i -e '$a\' "${expected_response_file_path}"
 
     echo "${track_name}/${exercise_name}: comparing response.json to expected_response.json"
     diff "${response_file_path}" "${expected_response_file_path}"

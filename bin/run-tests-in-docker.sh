@@ -2,12 +2,12 @@
 
 # Synopsis:
 # Test the lines of code counter Docker image by running it against a predefined set of 
-# solutions with an expected output.
+# submissions with an expected output.
 # The Docker image is built automatically.
 
 # Arguments:
 # $1: track slug (optional)
-# $2: exercise slug (optional)
+# $2: submission slug (optional)
 
 # Output:
 # Outputs the diff of the expected counts against the actual counts
@@ -19,18 +19,18 @@
 # Example running tests of a single track:
 # ./bin/run-tests-in-docker.sh csharp
 
-# Example running tests of a single track and a single exercise:
-# ./bin/run-tests-in-docker.sh csharp single-solution-file
+# Example running tests of a single track and a single submission slug:
+# ./bin/run-tests-in-docker.sh csharp single-file
 
 shopt -s extglob
 
 track_slug="${1:-*}"
-exercise_slug="${2:-*}"
+submission_slug="${2:-*}"
 
 exit_code=0
 
 # Iterate over all test directories
-for test_dir in tests/${track_slug}/${exercise_slug}; do
+for test_dir in tests/${track_slug}/${submission_slug}; do
     track_name=$(basename $(realpath "${test_dir}/../"))
     exercise_name=$(basename "${test_dir}")
     test_dir_path=$(realpath "${test_dir}")
