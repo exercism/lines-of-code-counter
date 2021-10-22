@@ -19,6 +19,6 @@ class ProcessRequest
   end
 
   def submission
-    Submission.new(event["submission_uuid"], event["submission_files"], event["track_slug"])
+    Submission.new(event["submission_uuid"], event["submission_filepaths"], event["track_slug"])
   end
 end

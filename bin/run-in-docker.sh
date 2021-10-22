@@ -22,7 +22,7 @@ fi
 track_slug="${1}"
 submission_dir=$(realpath "${2%/}")
 submission_uuid=$(basename "${submission_dir}")
-submission_files=$(find ${submission_dir} -type f ! -name *response.json -printf "%P\n" | xargs)
+submission_filepaths=$(find ${submission_dir} -type f ! -name *response.json -printf "%P\n" | xargs)
 response_file="${submission_dir}/response.json"
 container_port=9876
 
@@ -41,7 +41,7 @@ container_id=$(docker run \
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-event_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_files}" '{track_slug: $t, submission_uuid: $u, submission_files: ($f | split(" "))}')
+event_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" "))}')
 curl --silent --output "${response_file}" -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 
 echo "${track_slug}/${submission_uuid}: done"
