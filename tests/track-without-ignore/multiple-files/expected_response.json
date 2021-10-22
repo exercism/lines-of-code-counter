@@ -1,1 +1,1 @@
-{"statusCode":200,"headers":{"Content-Length":68,"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":"{\"code\":7,\"blanks\":0,\"comments\":0,\"files\":[\"leap.pony\",\"math.pony\"]}"}
+{"statusCode":200,"headers":{"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":{"code":7,"blanks":0,"comments":0,"files":["leap.pony","math.pony"]}}

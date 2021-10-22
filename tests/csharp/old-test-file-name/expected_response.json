@@ -1,1 +1,1 @@
-{"statusCode":200,"headers":{"Content-Length":54,"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":"{\"code\":27,\"blanks\":3,\"comments\":0,\"files\":[\"Bob.cs\"]}"}
+{"statusCode":200,"headers":{"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":{"code":27,"blanks":3,"comments":0,"files":["Bob.cs"]}}

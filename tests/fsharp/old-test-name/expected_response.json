@@ -1,1 +1,1 @@
-{"statusCode":200,"headers":{"Content-Length":57,"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":"{\"code\":8,\"blanks\":4,\"comments\":0,\"files\":[\"Anagram.fs\"]}"}
+{"statusCode":200,"headers":{"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":{"code":8,"blanks":4,"comments":0,"files":["Anagram.fs"]}}
