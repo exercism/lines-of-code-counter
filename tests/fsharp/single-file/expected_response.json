@@ -1,1 +1,9 @@
-{"statusCode":200,"headers":{"Content-Type":"application/json; charset=utf-8"},"isBase64Encoded":false,"body":{"code":24,"blanks":9,"comments":0,"files":["Anagram.fs","Anagram.fsproj"]}}
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Length": 75,
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"code\":24,\"blanks\":9,\"comments\":0,\"files\":[\"Anagram.fs\",\"Anagram.fsproj\"]}"
+}

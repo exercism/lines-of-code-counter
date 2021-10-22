@@ -49,6 +49,8 @@ for test_dir in tests/${track_slug}/${submission_slug}; do
     sed -i -e '$a\' "${response_file_path}"
     sed -i -e '$a\' "${expected_response_file_path}"
 
+    jq . "${response_file_path}" > tmp && mv tmp "${response_file_path}"
+
     echo "${track_name}/${submission_name}: comparing response.json to expected_response.json"
     diff "${response_file_path}" "${expected_response_file_path}"
 
