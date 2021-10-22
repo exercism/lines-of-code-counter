@@ -36,8 +36,8 @@ jobs:
         uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
         with:
           registry: ${{ env.ECR_REGISTRY }}
-          username: ${{ secrets.AWS_ECR_ACCESS_KEY_ID }}
-          password: ${{ secrets.AWS_ECR_ACCESS_KEY_ID }}
+          username: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0db984c1826869dcd0740ff26ff75ff543238fd9
