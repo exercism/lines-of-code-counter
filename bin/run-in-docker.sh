@@ -26,8 +26,10 @@ submission_files=$(find ${submission_dir} -type f ! -name *response.json -printf
 response_file="${submission_dir}/response.json"
 container_port=9876
 
-# Build the Docker image
-docker build --rm -t exercism/lines-of-code-counter .
+# Build the Docker image, unless SKIP_BUILD is set
+if [[ -z "${SKIP_BUILD}" ]]; then
+    docker build --rm -t exercism/lines-of-code-counter .
+fi
 
 # Run the Docker image using the settings mimicking the production environment
 container_id=$(docker run \
@@ -36,12 +38,12 @@ container_id=$(docker run \
     --mount type=bind,src="${submission_dir}",dst=/mnt/submissions/${submission_uuid} \
     exercism/lines-of-code-counter)
 
-echo "${track_slug}/${exercise_slug}: counting lines of code..."
+echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
 event_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_files}" '{track_slug: $t, submission_uuid: $u, submission_files: ($f | split(" "))}')
 curl --silent --output "${response_file}" -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 
-echo "${track_slug}/${exercise_slug}: done"
+echo "${track_slug}/${submission_uuid}: done"
 
 docker stop $container_id > /dev/null

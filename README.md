@@ -7,21 +7,11 @@ It takes a solution and counts its lines of code.
 
 ## Implementation
 
-As we only want to count the LoC of files the student wrote, we ignore:
+By default, we'll only count LoC in the files the student submitted.
+Should the student also submit one of the test files, we'll ignore those.
 
-- Test files (the `files.test` array in the exercise `.meta/config.json` file)
-- Editor files (the `files.editor` array in the exercise `.meta/config.json` file)
-- Example files (the `files.example` array in the exercise `.meta/config.json` file)
-- Exemplar files (the `files.exemplar` array in the exercise `.meta/config.json` file)
-- Files in hidden directories (e.g. `.docs/instructions.md` or `.meta/config.json`)
-
-The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
-
-## Default configuration
-
-The default configuration only counts the LoC of _solution files_ (the `files.solution` array in the exercise `.meta/config.json` file).
-
-While this does indeed exclude the above-mentioned files, it doesn't work well for:
+While this works well for almost any submission, it doesn't work for older solutions that used a different test naming scheme.
+TODO: expand
 
 - Old solutions which files were named differently
 - Solutions where the student added additional files
@@ -34,26 +24,6 @@ To override the default configuration, each track can define a config file named
 This config file defines the rules for which files to include when counting LoC for that track.
 The include files can use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
 
-You don't have to explicitly exclude the above-mentioned test/editor/example/exemplar/documentation/configuration files.
-We'll automatically exclude them for you.
-
-### Example
-
-Here is an example track-specific configuration:
-
-```gitignore
-*.fs
-```
-
-With this configuration, only the LoC of files with the `.fs` extension are counted.
-As mentioned, test files are automatically excluded. Therefore, the count won't include the tests files even though they also have the `.fs` extension.
-
-### Renamed files
-
-It's worth noting that older solutions might be using a different naming scheme than specified in the `files` key in the `.meta/config.json` file.
-If your track has changed the names of the test or editor files, consider adding rules to exclude old files that should _not_ be counted.
-
-As an example, the F# track used to have test files that ended with `Test.fs` (singular), but nowadays uses `Tests.fs` (plural).
 To exclude the old test files from the LoC count, we can append the following line to the F# track's configuration file:
 
 ```gitignore
@@ -109,6 +79,8 @@ When you've made modifications to the code that will result in a new "golden" st
 This repo is built and maintained by Exercism.
 
 Contributions are welcome!
+
+The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
 
 [test-runners]: https://github.com/exercism/automated-tests/blob/master/docs/introduction.md
 [golden]: https://ro-che.info/articles/2017-12-04-golden-tests

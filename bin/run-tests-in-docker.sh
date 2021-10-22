@@ -29,6 +29,9 @@ submission_slug="${2:-*}"
 
 exit_code=0
 
+# Pre-build the image to not build it for every test submission
+docker build --rm -t exercism/lines-of-code-counter .
+
 # Iterate over all test directories
 for test_dir in tests/${track_slug}/${submission_slug}; do
     track_name=$(basename $(realpath "${test_dir}/../"))
@@ -39,7 +42,8 @@ for test_dir in tests/${track_slug}/${submission_slug}; do
 
     rm -rf "${response_file_path}"
 
-    bin/run-in-docker.sh "${track_name}" "${test_dir_path}"
+    # We skip building the Docker image to speedup running the LoC counter
+    SKIP_BUILD=1 bin/run-in-docker.sh "${track_name}" "${test_dir_path}"
 
     # Ensure there is a trailing newline in both files
     sed -i -e '$a\' "${response_file_path}"
