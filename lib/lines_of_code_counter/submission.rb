@@ -22,7 +22,7 @@ class Submission
 
   private
   def ignore_filepath?(filepath)
-    ignore_rules.any? {|rule| File.fnmatch(rule, filepath)}
+    ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }
   end
 
   memoize

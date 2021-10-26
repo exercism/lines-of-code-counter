@@ -8,7 +8,7 @@ class CountLinesOfCode
       counts: {
         code: code,
         blanks: blanks,
-        comments: comments,
+        comments: comments
       },
       files: files
     }
