@@ -5,5 +5,5 @@
     "Content-Type": "application/json; charset=utf-8"
   },
   "isBase64Encoded": false,
-  "body": "{\"code\":34,\"blanks\":3,\"comments\":0,\"files\":[\"Bob.cs\",\"Bobby.cs\"]}"
+  "body": "{\"counts\":{\"code\":34,\"blanks\":3,\"comments\":0},\"files\":[\"Bob.cs\",\"Bobby.cs\"]}"
 }

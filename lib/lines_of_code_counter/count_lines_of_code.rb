@@ -5,9 +5,11 @@ class CountLinesOfCode
 
   def call
     {
-      code: code,
-      blanks: blanks,
-      comments: comments,
+      counts: {
+        code: code,
+        blanks: blanks,
+        comments: comments,
+      },
       files: files
     }
   end

@@ -5,5 +5,5 @@
     "Content-Type": "application/json; charset=utf-8"
   },
   "isBase64Encoded": false,
-  "body": "{\"code\":9,\"blanks\":0,\"comments\":0,\"files\":[\"leap.pony\",\"lib/helpers/helper.pony\",\"lib/org.pony\"]}"
+  "body": "{\"counts\":{\"code\":9,\"blanks\":0,\"comments\":0},\"files\":[\"leap.pony\",\"lib/helpers/helper.pony\",\"lib/org.pony\"]}"
 }

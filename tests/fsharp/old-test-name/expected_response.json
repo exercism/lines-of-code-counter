@@ -5,5 +5,5 @@
     "Content-Type": "application/json; charset=utf-8"
   },
   "isBase64Encoded": false,
-  "body": "{\"code\":8,\"blanks\":4,\"comments\":0,\"files\":[\"Anagram.fs\"]}"
+  "body": "{\"counts\":{\"code\":8,\"blanks\":4,\"comments\":0},\"files\":[\"Anagram.fs\"]}"
 }
