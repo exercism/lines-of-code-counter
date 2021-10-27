@@ -9,6 +9,7 @@ class ProcessRequest
 
     {
       statusCode: 200,
+      statusDescription: "Everything ran great",
       headers: {
         'Content-Length': counts_json.bytesize,
         'Content-Type': 'application/json; charset=utf-8'
