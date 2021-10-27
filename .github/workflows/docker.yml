@@ -37,7 +37,7 @@ jobs:
         with:
           registry: ${{ env.ECR_REGISTRY }}
           username: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
-          password: ${{ secrets.AWS_LAMBDA_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_LAMBDA_SECRET_ACCESS_KEY }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0db984c1826869dcd0740ff26ff75ff543238fd9
