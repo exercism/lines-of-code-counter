@@ -20,10 +20,15 @@ class ProcessRequest
 
   def submission
     puts event
-    puts event["submission_uuid"]
-    puts event["submission_filepaths"]
-    puts event["track_slug"]
+    puts body[:submission_uuid]
+    puts body[:submission_filepaths]
+    puts body[:track_slug]
     puts content
-    Submission.new(event["submission_uuid"], event["submission_filepaths"], event["track_slug"])
+    Submission.new(body[:submission_uuid], body[:submission_filepaths], body[:track_slug])
+  end
+
+  memoize
+  def body
+    JSON.parse(event["body"], symbolize_names: true)
   end
 end

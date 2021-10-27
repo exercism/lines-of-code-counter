@@ -41,7 +41,8 @@ container_id=$(docker run \
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-event_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" "))}')
+body_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" "))}')
+event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 curl --silent --output "${response_file}" -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 
 echo "${track_slug}/${submission_uuid}: done"

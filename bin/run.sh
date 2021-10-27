@@ -29,7 +29,8 @@ response_file="${submission_dir}/response.json"
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-event_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" "))}')
+body_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" "))}')
+event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 EFS_DIR="${submission_parent_dir}" ruby "./bin/run.rb" "${event_json}" > "${response_file}"
 
 echo "${track_slug}/${submission_uuid}: done"
