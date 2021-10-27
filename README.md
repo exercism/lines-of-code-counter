@@ -7,57 +7,22 @@ It takes a solution and counts its lines of code.
 
 ## Implementation
 
-As we only want to count the LoC of files the student wrote, we ignore:
+By default, we'll only count the LoC of files submitted by the student.
+If the student submitted a test file (which we identify via the `files.test` array in the exercise's `.meta/config.json` file), we'll ignore those.
 
-- Test files (the `files.test` array in the exercise `.meta/config.json` file)
-- Editor files (the `files.editor` array in the exercise `.meta/config.json` file)
-- Example files (the `files.example` array in the exercise `.meta/config.json` file)
-- Exemplar files (the `files.exemplar` array in the exercise `.meta/config.json` file)
-- Files in hidden directories (e.g. `.docs/instructions.md` or `.meta/config.json`)
+### Ignore additional files
 
-The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
+While this works well for most submissions, it doesn't work if the submission's exercise has test files with a different naming scheme than the files listed in the `.meta/config.json` file.
+This can only really occur for submission that are linked to older exercises which didn't _have_ a `.meta/config.json` file at the time.
 
-## Default configuration
+To ignore additional files (like the above test files) from being included in the LoC count, each track can define a `<slug>.ignore` file inside the `tracks` directory (e.g. [`tracks/csharp.ignore`](./tracks/csharp.ignore)).
+Inside this file, you can define rules to exclude certain file paths from the LoC count.
+The rules are matched using [File.fnmatch](https://ruby-doc.org/stdlib-2.6.1/libdoc/pathname/rdoc/Pathname.html#method-i-fnmatch), which uses standard globbing syntax.
 
-The default configuration only counts the LoC of _solution files_ (the `files.solution` array in the exercise `.meta/config.json` file).
-
-While this does indeed exclude the above-mentioned files, it doesn't work well for:
-
-- Old solutions which files were named differently
-- Solutions where the student added additional files
-
-Therefore, each track can define a track-specific configuration to allow counting LoC in non-solution files.
-
-## Track-specific configuration
-
-To override the default configuration, each track can define a config file named `<slug>.include` inside the `tracks` directory (e.g. [`tracks/csharp.include`](./tracks/csharp.include)).
-This config file defines the rules for which files to include when counting LoC for that track.
-The include files can use the same globbing [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files, except that the include file works the other way around: you indicate which files to include (excluding is done via the `!` prefix).
-
-You don't have to explicitly exclude the above-mentioned test/editor/example/exemplar/documentation/configuration files.
-We'll automatically exclude them for you.
-
-### Example
-
-Here is an example track-specific configuration:
+As an example, the C# track excludes old `*Test.cs` files (renamed since to `*Tests.cs`) using the following ignore file:
 
 ```gitignore
-*.fs
-```
-
-With this configuration, only the LoC of files with the `.fs` extension are counted.
-As mentioned, test files are automatically excluded. Therefore, the count won't include the tests files even though they also have the `.fs` extension.
-
-### Renamed files
-
-It's worth noting that older solutions might be using a different naming scheme than specified in the `files` key in the `.meta/config.json` file.
-If your track has changed the names of the test or editor files, consider adding rules to exclude old files that should _not_ be counted.
-
-As an example, the F# track used to have test files that ended with `Test.fs` (singular), but nowadays uses `Tests.fs` (plural).
-To exclude the old test files from the LoC count, we can append the following line to the F# track's configuration file:
-
-```gitignore
-!*Test.fs
+*Test.cs
 ```
 
 ## Run the Lines of Code Counter
@@ -65,9 +30,9 @@ To exclude the old test files from the LoC count, we can append the following li
 To count the lines of code of an arbitrary solution, do the following:
 
 1. Open a terminal in the project's root
-2. Run `./bin/run.sh <track-slug> <exercise-slug> <solution-dir> <output-dir>`
+2. Run `./bin/run.sh <track-slug> <submission-dir>`
 
-Once the test runner has finished, its results will be written to `<output-dir>/response.json`.
+Once the test runner has finished, its results will be written to `<submission-dir>/response.json`.
 
 ## Run the Lines of Code Counter on a solution using Docker
 
@@ -76,9 +41,9 @@ _This script is provided for testing purposes, as it mimics how the Lines of Cod
 To count the lines of code of an arbitrary solution using the Docker image, do the following:
 
 1. Open a terminal in the project's root
-2. Run `./bin/run-in-docker.sh <track-slug> <exercise-slug> <solution-dir> <output-dir>`
+2. Run `./bin/run-in-docker.sh <track-slug> <submission-dir>`
 
-Once the test runner has finished, its results will be written to `<output-dir>/response.json`.
+Once the test runner has finished, its results will be written to `<submission-dir>/response.json`.
 
 ## Run the tests
 
@@ -109,6 +74,8 @@ When you've made modifications to the code that will result in a new "golden" st
 This repo is built and maintained by Exercism.
 
 Contributions are welcome!
+
+The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
 
 [test-runners]: https://github.com/exercism/automated-tests/blob/master/docs/introduction.md
 [golden]: https://ro-che.info/articles/2017-12-04-golden-tests

@@ -4,7 +4,7 @@ class ProcessRequest
   initialize_with :event, :content
 
   def call
-    counts = CountLinesOfCode.(exercise)
+    counts = CountLinesOfCode.(submission)
     counts_json = counts.to_json
 
     {
@@ -18,7 +18,7 @@ class ProcessRequest
     }
   end
 
-  def exercise
-    Exercise.new(event["track"], event["solution"])
+  def submission
+    Submission.new(event["submission_uuid"], event["submission_filepaths"], event["track_slug"])
   end
 end
