@@ -22,7 +22,8 @@ class ProcessRequest
     puts event
     puts event["submission_uuid"]
     puts event["submission_filepaths"]
-    puts event["track_slug"])
+    puts event["track_slug"]
+    puts content
     Submission.new(event["submission_uuid"], event["submission_filepaths"], event["track_slug"])
   end
 end
