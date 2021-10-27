@@ -5,17 +5,15 @@ class ProcessRequest
 
   def call
     counts = CountLinesOfCode.(submission)
-    counts_json = counts.to_json
 
     {
       statusCode: 200,
-      statusDescription: "Everything ran great",
-      headers: {
-        'Content-Length': counts_json.bytesize,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
+      statusDescription: "200 OK",
       isBase64Encoded: false,
-      body: counts_json
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: counts.to_json
     }
   end
 
