@@ -25,7 +25,12 @@ track_slug="${1}"
 submission_dir=$(realpath "${2%/}")
 submission_uuid=$(basename "${submission_dir}")
 submission_filepaths=$(find ${submission_dir} -type f ! -name *response.json -printf "%P\n" | xargs)
-output_dir=$(realpath "${3%/}")
+
+if [ ! -z "${3}" ]; then
+    output_dir=$(realpath "${3%/}")
+    output_dir_mount="--mount type=bind,src="${output_dir}",dst=/mnt/output"
+fi
+
 container_port=9876
 
 # Build the Docker image, unless SKIP_BUILD is set
@@ -38,12 +43,13 @@ container_id=$(docker run \
     --detach \
     --publish ${container_port}:8080 \
     --mount type=bind,src="${submission_dir}",dst=/mnt/submissions/${submission_uuid} \
+    ${output_dir_mount} \
     exercism/lines-of-code-counter)
 
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-body_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else $o end)}')
+body_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else "/mnt/output" end)}')
 event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 curl -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 

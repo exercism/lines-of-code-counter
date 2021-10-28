@@ -26,7 +26,10 @@ submission_dir=$(realpath "${2%/}")
 submission_uuid=$(basename "${submission_dir}")
 submission_filepaths=$(find ${submission_dir} -type f ! -name *response.json -printf "%P\n" | xargs)
 submission_parent_dir=$(realpath ${submission_dir}/..)
-output_dir=$(realpath "${3%/}")
+
+if [ ! -z "${3}" ]; then
+    output_dir=$(realpath "${3%/}")
+fi
 
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 

@@ -3,7 +3,7 @@ class ProcessRequest
 
   initialize_with :event, :content
 
-  def call    
+  def call
     write_output_to_file if output_filepath
     response
   end
