@@ -1,10 +1,10 @@
 {
   "statusCode": 200,
   "statusDescription": "200 OK",
-  "isBase64Encoded": false,
   "headers": {
     "Content-Length": 86,
     "Content-Type": "application/json"
   },
+  "isBase64Encoded": false,
   "body": "{\"counts\":{\"code\":24,\"blanks\":9,\"comments\":0},\"files\":[\"Anagram.fs\",\"Anagram.fsproj\"]}"
 }
