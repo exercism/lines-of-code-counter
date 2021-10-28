@@ -16,10 +16,7 @@ class ProcessRequest
     {
       statusCode: 200,
       statusDescription: "200 OK",
-      headers: {
-        'Content-Length': counts.bytesize,
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       isBase64Encoded: false,
       body: counts
     }
