@@ -38,7 +38,7 @@ for test_dir in tests/${track_slug}/${exercise_slug}; do
 
     rm -rf "${response_file_path}"
 
-    bin/run.sh "${track_name}" "${test_dir_path}"
+    bin/run.sh "${track_name}" "${test_dir_path}" "${test_dir_path}"
 
     # Ensure there is a trailing newline in both files
     sed -i -e '$a\' "${response_file_path}"

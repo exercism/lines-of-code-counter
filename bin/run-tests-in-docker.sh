@@ -43,7 +43,7 @@ for test_dir in tests/${track_slug}/${submission_slug}; do
     rm -rf "${response_file_path}"
 
     # We skip building the Docker image to speedup running the LoC counter
-    SKIP_BUILD=1 bin/run-in-docker.sh "${track_name}" "${test_dir_path}"
+    SKIP_BUILD=1 bin/run-in-docker.sh "${track_name}" "${test_dir_path}" "${test_dir_path}"
 
     # Ensure there is a trailing newline in both files
     sed -i -e '$a\' "${response_file_path}"

@@ -1,9 +1,10 @@
 {
   "statusCode": 200,
+  "statusDescription": "200 OK",
+  "isBase64Encoded": false,
   "headers": {
     "Content-Length": 79,
-    "Content-Type": "application/json; charset=utf-8"
+    "Content-Type": "application/json"
   },
-  "isBase64Encoded": false,
   "body": "{\"counts\":{\"code\":7,\"blanks\":0,\"comments\":0},\"files\":[\"leap.pony\",\"math.pony\"]}"
 }

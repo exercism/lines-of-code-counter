@@ -1,9 +1,10 @@
 {
   "statusCode": 200,
+  "statusDescription": "200 OK",
+  "isBase64Encoded": false,
   "headers": {
     "Content-Length": 65,
-    "Content-Type": "application/json; charset=utf-8"
+    "Content-Type": "application/json"
   },
-  "isBase64Encoded": false,
   "body": "{\"counts\":{\"code\":27,\"blanks\":3,\"comments\":0},\"files\":[\"Bob.cs\"]}"
 }

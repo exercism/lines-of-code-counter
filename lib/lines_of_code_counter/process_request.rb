@@ -3,17 +3,25 @@ class ProcessRequest
 
   initialize_with :event, :content
 
-  def call
-    counts = CountLinesOfCode.(submission)
+  def call    
+    write_output_to_file if output_filepath
+    response
+  end
+
+  private
+  memoize
+  def response
+    counts = CountLinesOfCode.(submission).to_json
 
     {
       statusCode: 200,
       statusDescription: "200 OK",
       isBase64Encoded: false,
-      headers: {
+      headers: { 
+        'Content-Length': counts.bytesize,
         'Content-Type': 'application/json'
       },
-      body: counts.to_json
+      body: counts
     }
   end
 
@@ -24,6 +32,16 @@ class ProcessRequest
     puts body[:track_slug]
     puts content
     Submission.new(body[:submission_uuid], body[:submission_filepaths], body[:track_slug])
+  end
+
+  def write_output_to_file
+    File.write(output_filepath, response.to_json)
+  end
+
+  def output_filepath
+    return if body[:output_dir].nil?
+
+    "#{body[:output_dir]}/response.json"
   end
 
   memoize
