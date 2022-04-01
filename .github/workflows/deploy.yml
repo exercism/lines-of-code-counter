@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
   workflow_dispatch:
 
 permissions: {}
@@ -23,7 +22,7 @@ jobs:
       DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
 
   deploy-lambda:
-    uses: exercism/github-actions/.github/workflows/deploy-lambda.yml@workflow-lambda
+    uses: exercism/github-actions/.github/workflows/deploy-lambda.yml@main
     needs: build-and-push-image
     with:
       function_name: lines_of_code_counter
