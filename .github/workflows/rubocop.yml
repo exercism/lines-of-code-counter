@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@8c72644a0b2138c5f64531d3c8011890200fa183
+        uses: ruby/setup-ruby@e92b7971f0f3a08d2cf29cceb1d82d4c704a2a78
         with:
           ruby-version: .ruby-version
 
