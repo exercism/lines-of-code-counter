@@ -13,6 +13,8 @@ jobs:
     uses: exercism/github-actions/.github/workflows/docker-build-push-image.yml@main
     permissions:
       contents: write
+    with:
+      provenance: false
     secrets:
       AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
       AWS_REGION: ${{secrets.AWS_REGION}}
