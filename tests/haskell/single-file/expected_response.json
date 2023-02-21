@@ -1,0 +1,9 @@
+{
+    "statusCode": 200,
+    "statusDescription": "200 OK",
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "isBase64Encoded": false,
+    "body": "{\"counts\":{\"code\":9,\"blanks\":3,\"comments\":0},\"files\":[\"src/Anagram.hs\"]}"
+}
