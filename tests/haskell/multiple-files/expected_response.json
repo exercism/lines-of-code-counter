@@ -1,9 +1,9 @@
 {
-    "statusCode": 200,
-    "statusDescription": "200 OK",
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "isBase64Encoded": false,
-    "body": "{\"counts\":{\"code\":10,\"blanks\":5,\"comments\":1},\"files\":[\"src/Anagram.hs\",\"src/Helper.hs\"]}"
+  "statusCode": 200,
+  "statusDescription": "200 OK",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"counts\":{\"code\":10,\"blanks\":5,\"comments\":1},\"files\":[\"src/Anagram.hs\",\"src/Helper.hs\"]}"
 }
