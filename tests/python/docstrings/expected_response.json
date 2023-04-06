@@ -1,0 +1,9 @@
+{
+  "statusCode": 200,
+  "statusDescription": "200 OK",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"counts\":{\"code\":2,\"blanks\":3,\"comments\":9},\"files\":[\"strings.py\"]}"
+}
