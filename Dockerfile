@@ -20,6 +20,7 @@ ENV GEM_HOME=${LAMBDA_TASK_ROOT}
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+COPY tokei.toml .
 COPY lib/ lib/
 COPY tracks/ tracks/
 
