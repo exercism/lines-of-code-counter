@@ -1,0 +1,29 @@
+name: Backup
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * * # Every day of each month
+
+jobs:
+  sync_to_aws:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        with:
+          fetch-depth: 0 # Fetch the entire history to ensure everything is backup-ed
+
+      - name: Mirror to AWS codemirror
+        uses: pixta-dev/repository-mirroring-action@674e65a7d483ca28dafaacba0d07351bdcc8bd75
+        with:
+          target_repo_url:
+            ssh://git-codecommit.${{ secrets.AWS_REGION }}.amazonaws.com/v1/repos/${{ github.event.repository.name }}
+          ssh_private_key:
+            ${{ secrets.AWS_CODECOMMIT_SSH_PRIVATE_KEY }}
+          ssh_username:
+            ${{ secrets.AWS_CODECOMMIT_SSH_PRIVATE_KEY_ID }}
