@@ -2,8 +2,8 @@ name: Backup
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
   schedule:
     - cron: 0 0 * * * # Every day of each month    
   workflow_dispatch:
