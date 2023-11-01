@@ -10,7 +10,9 @@ WORKDIR ${LAMBDA_TASK_ROOT}
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-RUN cargo install --git https://github.com/exercism/tokei tokei
+# We pin the SHA to allow us to bust the Docker cache
+ENV TOKEI_SHA="c8e4d0703252c87b1df45382b365c6bb00769dbe"
+RUN cargo install --git https://github.com/exercism/tokei --rev ${TOKEI_SHA} tokei
 
 FROM public.ecr.aws/lambda/ruby:2.7 AS runtime
 
