@@ -6,7 +6,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN yum install gcc -y
 
-RUN cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
+RUN cargo install --git https://github.com/exercism/tokei tokei
 
 FROM public.ecr.aws/lambda/ruby:2.7 AS runtime
 
