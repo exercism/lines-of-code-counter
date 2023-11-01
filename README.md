@@ -75,8 +75,11 @@ This repo is built and maintained by Exercism.
 
 Contributions are welcome!
 
-The actual counting of the LoC is done using the [tokei](https://github.com/XAMPPRocky/tokei) tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
+The actual counting of the LoC is done using [our fork][fork] of the [tokei][tokei] tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
+Please submit any PRs to both [our fork][fork] _and_ the [tokei repo][tokei].
 
 [test-runners]: https://github.com/exercism/automated-tests/blob/master/docs/introduction.md
 [golden]: https://ro-che.info/articles/2017-12-04-golden-tests
 [exercism]: https://exercism.io
+[fork]: https://github.com/exercism/tokei
+[tokei]: https://github.com/XAMPPRocky/tokei
