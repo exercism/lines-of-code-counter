@@ -11,7 +11,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 # We pin the SHA to allow us to bust the Docker cache
-ENV TOKEI_SHA="c8e4d0703252c87b1df45382b365c6bb00769dbe"
+ENV TOKEI_SHA="d7ec1619c52b6059c0dc976211f1b2f02ee0deb4"
 RUN cargo install --git https://github.com/exercism/tokei --rev ${TOKEI_SHA} tokei
 
 FROM public.ecr.aws/lambda/ruby:2.7 AS runtime
