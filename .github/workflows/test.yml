@@ -12,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Fetch tokei repo's latest commit SHA
+        id: tokei
+        run: |
+          latest_sha=$(gh api /repos/exercism/tokei/commits/master --jq '.sha')
+          echo "latest_sha=${latest_sha}" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Checkout code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
@@ -29,6 +37,7 @@ jobs:
           tags: exercism/lines-of-code-counter
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: TOKEI_SHA=${{ steps.tokei.outputs.latest_sha }}
 
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
