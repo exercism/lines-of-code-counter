@@ -19,8 +19,8 @@ jobs:
       - name: Fetch latest commit SHA
         id: fetch-latest-sha
         run: |
-          sha=$(gh api /repos/exercism/tokei/commits/master --jq '.sha')
-          echo "sha=${sha}" >> $GITHUB_OUTPUT
+          source ./bin/fetch-latest-tokei-sha.sh
+          echo "sha=${LATEST_TOKEI_SHA}" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ github.token }}
 
