@@ -16,6 +16,9 @@ jobs:
       latest-sha: ${{ steps.fetch-latest-sha.outputs.result }}
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
       - name: Fetch latest commit SHA
         id: fetch-latest-sha
         run: |
