@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     
     outputs:
-      latest-sha: ${{ steps.fetch-latest-sha.outputs.result }}
+      latest-sha: ${{ steps.fetch-latest-sha.outputs.sha }}
 
     steps:
       - name: Checkout code
