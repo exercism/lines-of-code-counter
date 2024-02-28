@@ -20,17 +20,9 @@ class CountLinesOfCode
     JSON.parse(`tokei --files #{submission.efs_filepaths.join(' ')} --output json`, symbolize_names: true)
   end
 
-  def code
-    report[:Total][:code]
-  end
-
-  def blanks
-    report[:Total][:blanks]
-  end
-
-  def comments
-    report[:Total][:comments]
-  end
+  def code = report[:Total][:code]
+  def blanks = report[:Total][:blanks]
+  def comments = report[:Total][:comments]
 
   def files
     report[:Total][:children].values.
