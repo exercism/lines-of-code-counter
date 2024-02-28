@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/ruby:2.7 AS build
+FROM public.ecr.aws/lambda/ruby:3.2 AS build
 
 RUN yum install gcc make -y
 
@@ -14,7 +14,7 @@ RUN bundle install
 ARG TOKEI_SHA
 RUN cargo install --git https://github.com/exercism/tokei --rev ${TOKEI_SHA} tokei
 
-FROM public.ecr.aws/lambda/ruby:2.7 AS runtime
+FROM public.ecr.aws/lambda/ruby:3.2 AS runtime
 
 ENV GEM_HOME=${LAMBDA_TASK_ROOT}
 WORKDIR ${LAMBDA_TASK_ROOT}

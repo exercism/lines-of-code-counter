@@ -11,19 +11,13 @@ class Submission
     end.compact
   end
 
-  def efs_dir
-    "#{efs_submissions_dir}/#{uuid}"
-  end
+  def efs_dir = "#{efs_submissions_dir}/#{uuid}"
 
-  def efs_submissions_dir
-    # TODO: get this from the config gem
-    ENV.fetch("EFS_DIR", "/mnt/submissions")
-  end
+  # TODO: get this from the config gem
+  def efs_submissions_dir = ENV.fetch("EFS_DIR", "/mnt/submissions")
 
   private
-  def ignore_filepath?(filepath)
-    ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }
-  end
+  def ignore_filepath?(filepath) = ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }
 
   memoize
   def ignore_rules
@@ -32,7 +26,5 @@ class Submission
     File.readlines(ignore_rules_filepath, chomp: true)
   end
 
-  def ignore_rules_filepath
-    "tracks/#{track}.ignore"
-  end
+  def ignore_rules_filepath = "tracks/#{track}.ignore"
 end

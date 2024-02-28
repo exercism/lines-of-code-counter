@@ -22,6 +22,9 @@
 # Example running tests of a single track and a single submission slug:
 # ./bin/run-tests-in-docker.sh csharp single-file
 
+# Stop executing when a command returns a non-zero return code
+set -e
+
 shopt -s extglob
 
 track_slug="${1:-*}"

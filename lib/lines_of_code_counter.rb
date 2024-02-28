@@ -6,7 +6,5 @@ require "./lib/lines_of_code_counter/process_request"
 require "./lib/lines_of_code_counter/submission"
 
 module LinesOfCodeCounter
-  def self.process(event:, context:)
-    ProcessRequest.(event, context)
-  end
+  def self.process(event:, context:) = ProcessRequest.(event, context)
 end
