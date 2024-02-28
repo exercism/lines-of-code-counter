@@ -23,11 +23,6 @@ class ProcessRequest
   end
 
   def submission
-    puts event
-    puts body[:submission_uuid]
-    puts body[:submission_filepaths]
-    puts body[:track_slug]
-    puts content
     Submission.new(body[:submission_uuid], body[:submission_filepaths], body[:track_slug])
   end
 
