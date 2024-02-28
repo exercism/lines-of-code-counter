@@ -15,6 +15,9 @@
 # Example:
 # ./bin/run-in-docker.sh ruby path/to/submission/directory/
 
+# Stop executing when a command returns a non-zero return code
+set -e
+
 # If any required arguments is missing, print the usage and exit
 if [[ $# -lt 2 ]]; then
     echo "usage: ./bin/run-in-docker.sh track-slug path/to/submission/directory/ [path/to/output/directory/]"
