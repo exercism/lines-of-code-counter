@@ -8,7 +8,9 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ENV GEM_HOME=${LAMBDA_TASK_ROOT}
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle config set deployment 'true' && \
+    bundle config set without 'development test' && \
+    bundle install
 
 # We pin the SHA to allow us to bust the Docker cache
 ARG TOKEI_SHA
