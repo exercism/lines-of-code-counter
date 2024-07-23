@@ -5,5 +5,5 @@
     "Content-Type": "application/json"
   },
   "isBase64Encoded": false,
-  "body": "{\"counts\":{\"code\":114,\"blanks\":14,\"comments\":4},\"files\":[\"src/anagram.cairo\",\"src/helper.cairo\"]}"
+  "body": "{\"counts\":{\"code\":111,\"blanks\":17,\"comments\":4},\"files\":[\"src/helper.cairo\",\"src/lib.cairo\"]}"
 }
