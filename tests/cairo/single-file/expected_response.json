@@ -1,0 +1,9 @@
+{
+  "statusCode": 200,
+  "statusDescription": "200 OK",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"counts\":{\"code\":109,\"blanks\":16,\"comments\":4},\"files\":[\"src/anagram.cairo\"]}"
+}
