@@ -34,7 +34,7 @@ fi
 echo "${track_slug}/${submission_uuid}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-body_json=$(jq -n --arg t "${track_slug}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, submission_uuid: $u, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else $o end)}')
+body_json=$(jq -n --arg t "${track_slug}" --arg e "${submission_dir}" --arg u "${submission_uuid}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, efs_dir: $e, submission_uuid: $u, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else "/mnt/output" end)}')
 event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 EFS_DIR="${submission_parent_dir}" ruby "./bin/run.rb" "${event_json}"
 

@@ -1,7 +1,9 @@
 class Submission
   include Mandate
 
-  initialize_with :uuid, :filepaths, :track
+  initialize_with :efs_dir, :filepaths, :track
+
+  attr_reader :efs_dir
 
   def efs_filepaths
     filepaths.map do |filepath|
@@ -9,15 +11,6 @@ class Submission
 
       "#{efs_dir}/#{filepath}"
     end.compact
-  end
-
-  def efs_dir
-    "#{efs_submissions_dir}/#{uuid}"
-  end
-
-  def efs_submissions_dir
-    # TODO: get this from the config gem
-    ENV.fetch("EFS_DIR", "/mnt/submissions")
   end
 
   private
