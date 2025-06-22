@@ -1,9 +1,9 @@
 class Submission
   include Mandate
 
-  initialize_with :efs_dir, :filepaths, :track
+  initialize_with :job_dir, :filepaths, :track
 
-  attr_reader :efs_dir
+  attr_reader :job_dir
 
   def efs_filepaths
     filepaths.map do |filepath|
@@ -12,6 +12,9 @@ class Submission
       "#{efs_dir}/#{filepath}"
     end.compact
   end
+
+  memoize
+  def efs_dir = "/mnt/tooling_jobs/#{job_dir}"
 
   private
   def ignore_filepath?(filepath)

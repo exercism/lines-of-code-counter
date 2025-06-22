@@ -23,7 +23,7 @@ class ProcessRequest
   end
 
   def submission
-    Submission.new(body[:efs_dir], body[:submission_filepaths], body[:track_slug])
+    Submission.new(body[:job_dir], body[:submission_filepaths], body[:track_slug])
   end
 
   def write_output_to_file
