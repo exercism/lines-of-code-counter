@@ -21,7 +21,7 @@ Resources:
             Path: /count_lines_of_code
             Method: post
     Metadata:
-      DockerTag: ruby2.7-v1
+      DockerTag: ruby3.2-v1
       DockerContext: ./
       Dockerfile: Dockerfile
 

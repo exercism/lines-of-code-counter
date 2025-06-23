@@ -15,6 +15,9 @@
 # Example:
 # ./bin/run-in-docker.sh ruby path/to/submission/directory/
 
+# Stop executing when a command returns a non-zero return code
+set -e
+
 # If any required arguments is missing, print the usage and exit
 if [[ $# -lt 2 ]]; then
     echo "usage: ./bin/run-in-docker.sh track-slug path/to/submission/directory/ [path/to/output/directory/]"
@@ -35,7 +38,11 @@ container_port=9876
 
 # Build the Docker image, unless SKIP_BUILD is set
 if [[ -z "${SKIP_BUILD}" ]]; then
-    docker build --rm -t exercism/lines-of-code-counter .
+    if [ -z "${LATEST_TOKEI_SHA}" ]; then
+        source ./bin/fetch-latest-tokei-sha.sh
+    fi
+
+    docker build --rm -t exercism/lines-of-code-counter --build-arg "TOKEI_SHA=${LATEST_TOKEI_SHA}" .
 fi
 
 # Run the Docker image using the settings mimicking the production environment

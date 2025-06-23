@@ -22,6 +22,9 @@
 # Example running tests of a single track and a single submission slug:
 # ./bin/run-tests-in-docker.sh csharp single-file
 
+# Stop executing when a command returns a non-zero return code
+set -e
+
 shopt -s extglob
 
 track_slug="${1:-*}"
@@ -29,8 +32,12 @@ submission_slug="${2:-*}"
 
 exit_code=0
 
+if [ -z "${LATEST_TOKEI_SHA}" ]; then
+    source ./bin/fetch-latest-tokei-sha.sh
+fi
+
 # Pre-build the image to not build it for every test submission
-docker build --rm -t exercism/lines-of-code-counter .
+docker build --rm -t exercism/lines-of-code-counter --build-arg "TOKEI_SHA=${LATEST_TOKEI_SHA}" .
 
 # Iterate over all test directories
 for test_dir in tests/${track_slug}/${submission_slug}; do

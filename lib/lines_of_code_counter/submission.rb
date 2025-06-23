@@ -13,13 +13,11 @@ class Submission
     end.compact
   end
 
-  memoize
-  def efs_dir = "/mnt/tooling_jobs/#{job_dir}"
+  def efs_dir = "#{efs_tooling_jobs_dir}/#{job_dir}"
+  def efs_tooling_jobs_dir = ENV.fetch("EFS_DIR", "/mnt/tooling_jobs")
 
   private
-  def ignore_filepath?(filepath)
-    ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }
-  end
+  def ignore_filepath?(filepath) = ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }
 
   memoize
   def ignore_rules
@@ -28,7 +26,5 @@ class Submission
     File.readlines(ignore_rules_filepath, chomp: true)
   end
 
-  def ignore_rules_filepath
-    "tracks/#{track}.ignore"
-  end
+  def ignore_rules_filepath = "tracks/#{track}.ignore"
 end

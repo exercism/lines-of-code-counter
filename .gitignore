@@ -1,3 +1,4 @@
 node_modules/
 tests/**/response.json
 tests/**/.tokeignore
+tests/**/Scarb.lock
