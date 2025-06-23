@@ -17,7 +17,6 @@ class CountLinesOfCode
   private
   memoize
   def report
-    puts `tokei --files #{submission.efs_filepaths.join(' ')} --output json`
     JSON.parse(`tokei --files #{submission.efs_filepaths.join(' ')} --output json`, symbolize_names: true)
   end
 

@@ -20,14 +20,15 @@ set -e
 
 # If any required arguments is missing, print the usage and exit
 if [[ $# -lt 2 ]]; then
-    echo "usage: ./bin/run-in-docker.sh track-slug path/to/submission/directory/ [path/to/output/directory/]"
+    echo "usage: ./bin/run-in-docker.sh track-slug path/to/tooling/directory/ [path/to/output/directory/]"
     exit 1
 fi
 
 track_slug="${1}"
-submission_dir=$(realpath "${2%/}")
-job_id=$(basename "${submission_dir}")
-submission_filepaths=$(find "${submission_dir}" -type f ! -name "*response.json" | sed "s|^${submission_dir}/||" | xargs)
+job_dir=$(realpath "${2%/}")
+job_id=$(basename "${job_dir}")
+mount_dir="/mnt/tooling_jobs/${job_id}"
+submission_filepaths=$(find "${job_dir}" -type f ! -name "*response.json" | sed "s|^${job_dir}/||" | xargs)
 
 if [ ! -z "${3}" ]; then
     output_dir=$(realpath "${3%/}")
@@ -49,14 +50,14 @@ fi
 container_id=$(docker run \
     --detach \
     --publish ${container_port}:8080 \
-    --mount type=bind,src="${submission_dir}",dst=${submission_dir} \
+    --mount type=bind,src="${job_dir}",dst=${mount_dir} \
     ${output_dir_mount} \
     exercism/lines-of-code-counter)
 
 echo "${track_slug}/${job_id}/${container_id}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
-body_json=$(jq -n --arg t "${track_slug}" --arg e "${submission_dir}" --arg u "${job_id}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, efs_dir: $e, job_id: $u, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else "/mnt/output" end)}')
+body_json=$(jq -n --arg t "${track_slug}" --arg e "${job_id}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, job_dir: $e, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else "/mnt/output" end)}')
 event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 curl -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 
