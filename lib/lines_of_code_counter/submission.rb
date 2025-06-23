@@ -1,7 +1,9 @@
 class Submission
   include Mandate
 
-  initialize_with :uuid, :filepaths, :track
+  initialize_with :job_dir, :filepaths, :track
+
+  attr_reader :job_dir
 
   def efs_filepaths
     filepaths.map do |filepath|
@@ -11,10 +13,8 @@ class Submission
     end.compact
   end
 
-  def efs_dir = "#{efs_submissions_dir}/#{uuid}"
-
-  # TODO: get this from the config gem
-  def efs_submissions_dir = ENV.fetch("EFS_DIR", "/mnt/submissions")
+  def efs_dir = "#{efs_tooling_jobs_dir}/#{job_dir}"
+  def efs_tooling_jobs_dir = ENV.fetch("EFS_DIR", "/mnt/tooling_jobs")
 
   private
   def ignore_filepath?(filepath) = ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }

@@ -22,7 +22,7 @@ class ProcessRequest
     }
   end
 
-  def submission = Submission.new(body[:submission_uuid], body[:submission_filepaths], body[:track_slug])
+  def submission = Submission.new(body[:job_dir], body[:submission_filepaths], body[:track_slug])
   def write_output_to_file = File.write(output_filepath, response.to_json)
 
   def output_filepath
