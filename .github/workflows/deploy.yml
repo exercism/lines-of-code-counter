@@ -10,7 +10,7 @@ permissions: {}
 
 jobs:
   tokei:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     
     outputs:
       latest-sha: ${{ steps.fetch-latest-sha.outputs.latest-sha }}
