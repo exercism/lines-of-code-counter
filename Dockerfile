@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/ruby:3.3.2024.04.17.17 AS build
+FROM public.ecr.aws/lambda/ruby:4.0.2026.10.08.23 AS build
 
 RUN dnf install gcc make -y
 
@@ -16,7 +16,7 @@ RUN bundle config set deployment 'true' && \
 ARG TOKEI_SHA
 RUN cargo install --git https://github.com/exercism/tokei --rev ${TOKEI_SHA} tokei
 
-FROM public.ecr.aws/lambda/ruby:3.3.2024.04.17.17 AS runtime
+FROM public.ecr.aws/lambda/ruby:4.0.2026.10.08.23 AS runtime
 
 ENV GEM_HOME=${LAMBDA_TASK_ROOT}
 WORKDIR ${LAMBDA_TASK_ROOT}
