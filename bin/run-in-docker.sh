@@ -57,7 +57,12 @@ container_id=$(docker run \
 echo "${track_slug}/${job_id}/${container_id}: counting lines of code..."
 
 # Call the function with the correct JSON event payload
+# If the test directory has a request.json, it is the request body (the format that sends file contents).
+if [ -f "${job_dir}/request.json" ]; then
+    body_json=$(jq -c --arg o "${output_dir}" '. + {output_dir: (if $o == "" then null else "/mnt/output" end)}' "${job_dir}/request.json")
+else
 body_json=$(jq -n --arg t "${track_slug}" --arg e "${job_id}" --arg f "${submission_filepaths}" --arg o "${output_dir}" '{track_slug: $t, job_dir: $e, submission_filepaths: ($f | split(" ")), output_dir: (if $o == "" then null else "/mnt/output" end)}')
+fi
 event_json=$(jq -n --arg b "${body_json}" '{body: $b}')
 curl -XPOST http://localhost:${container_port}/2015-03-31/functions/function/invocations -d "${event_json}"
 

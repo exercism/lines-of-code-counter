@@ -33,6 +33,9 @@ exit_code=0
 
 # Iterate over all test directories
 for test_dir in tests/${track_slug}/${exercise_slug}; do
+    # Tests with a request.json need the Docker image (bin/run-tests-in-docker.sh)
+    if [ -f "${test_dir}/request.json" ]; then continue; fi
+
     track_name=$(basename $(realpath "${test_dir}/../"))
     submission_name=$(basename "${test_dir}")
     test_dir_path=$(realpath "${test_dir}")

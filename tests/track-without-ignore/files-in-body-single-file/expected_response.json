@@ -1,0 +1,9 @@
+{
+  "statusCode": 200,
+  "statusDescription": "200 OK",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"counts\":{\"code\":4,\"blanks\":0,\"comments\":0},\"files\":[\"leap.pony\"]}"
+}

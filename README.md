@@ -25,6 +25,19 @@ As an example, the C# track excludes old `*Test.cs` files (renamed since to `*Te
 *Test.cs
 ```
 
+## Request formats
+
+The Lambda accepts two request body formats.
+If the body has a `files` key, it is the new format: `{"track_slug": "ruby", "files": {"lib/bob.rb": "<file content>"}}`.
+The counter writes the files to a temporary directory, counts them and deletes the directory.
+Paths that are absolute or contain `..` get a 400 response.
+
+Otherwise it is the legacy format, where the files are already on EFS: `{"track_slug": "...", "job_dir": "...", "submission_filepaths": ["..."]}`.
+This format will be removed once the website sends the new one.
+
+Golden tests for the new format have a `request.json` in the test directory.
+`bin/run-tests-in-docker.sh` sends it as the request body, and `bin/run-tests.sh` skips those tests.
+
 ## Run the Lines of Code Counter
 
 To count the lines of code of an arbitrary solution, do the following:
