@@ -1,0 +1,6 @@
+{
+  "track_slug": "python",
+  "files": {
+    "strings.py": "\"\"\"Functions for creating, transforming, and adding prefixes to strings.\n\nAnd many more functions too\n\"\"\"\n\n\ndef add_prefix_un(word):\n    \"\"\"Take the given word and add the 'un' prefix.\n\n    :param word: str - containing the root word.\n    :return: str - of root word prepended with 'un'.\n    \"\"\"\n\n    return 'un' + word\n"
+  }
+}

@@ -31,14 +31,6 @@ class ProcessRequest
   end
 
   def counts
-    # Requests with a "files" key send the file contents in the body.
-    # Requests without it are the legacy format, where the files are on EFS.
-    return count_files_in_body if body.key?(:files)
-
-    CountLinesOfCode.(Submission.new(legacy_dir, body[:submission_filepaths], body[:track_slug]))
-  end
-
-  def count_files_in_body
     files = body[:files]
     raise InvalidRequest, "files must be an object of paths to string contents" unless files.is_a?(Hash) && files.values.all?(String)
 
@@ -62,7 +54,6 @@ class ProcessRequest
     raise InvalidRequest, "invalid file path: #{filepath.inspect}"
   end
 
-  def legacy_dir = "#{ENV.fetch('EFS_DIR', '/mnt/tooling_jobs')}/#{body[:job_dir]}"
   def write_output_to_file = File.write(output_filepath, response.to_json)
 
   def output_filepath

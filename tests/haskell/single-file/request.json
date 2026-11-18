@@ -1,0 +1,8 @@
+{
+  "track_slug": "haskell",
+  "files": {
+    "anagram.cabal": "cabal-version: 1.12\n\n-- This file has been generated from package.yaml by hpack version 0.35.0.\n--\n-- see: https://github.com/sol/hpack\n\nname:           anagram\nversion:        1.4.0.8\nbuild-type:     Simple\n\nlibrary\n  exposed-modules:\n      Anagram\n  other-modules:\n      Paths_anagram\n  hs-source-dirs:\n      src\n  ghc-options: -Wall\n  build-depends:\n      base\n    , multiset\n  default-language: Haskell2010\n\ntest-suite test\n  type: exitcode-stdio-1.0\n  main-is: Tests.hs\n  other-modules:\n      Paths_anagram\n  hs-source-dirs:\n      test\n  build-depends:\n      anagram\n    , base\n    , hspec\n    , multiset\n  default-language: Haskell2010\n",
+    "package.yaml": "name: anagram\nversion: 1.4.0.8\n\ndependencies:\n  - base\n  - multiset\n\nlibrary:\n  exposed-modules: Anagram\n  source-dirs: src\n  ghc-options: -Wall\n  # dependencies:\n  # - foo       # List here the packages you\n  # - bar       # want to use in your solution.\n\ntests:\n  test:\n    main: Tests.hs\n    source-dirs: test\n    dependencies:\n      - anagram\n      - hspec\n",
+    "src/Anagram.hs": "{-# LANGUAGE ViewPatterns #-}\n\nmodule Anagram (anagramsFor) where\n\nimport Data.Char (toLower)\nimport Data.MultiSet (fromList)\n\nanagramsFor :: String -> [String] -> [String]\nanagramsFor = filter . isProperAnagramOf\n  where\n    isProperAnagramOf (map toLower -> s) (map toLower -> t) =\n      s /= t && fromList s == fromList t\n"
+  }
+}

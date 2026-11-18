@@ -1,0 +1,7 @@
+{
+  "track_slug": "fsharp",
+  "files": {
+    "Anagram.fs": "﻿module Anagram\n\nopen System\nopen Helper\n\nlet findAnagrams sources target = \n    let normalizedTarget = normalize target\n    let isMatch str = normalize str = normalizedTarget && unequal str target\n    \n    List.filter isMatch sources\n",
+    "Helper.fs": "﻿module Helper\n\nopen System\n\nlet equals str other = String.Equals(str, other, StringComparison.InvariantCultureIgnoreCase)\nlet toLower str = str.ToLowerInvariant()\nlet normalize (str:string) = new string(toLower.ToCharArray() |> Array.sort)\nlet unequal str other = not (equals str other)\n"
+  }
+}
