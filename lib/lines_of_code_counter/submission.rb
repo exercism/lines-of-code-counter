@@ -1,20 +1,17 @@
 class Submission
   include Mandate
 
-  initialize_with :job_dir, :filepaths, :track
+  initialize_with :dir, :filepaths, :track
 
-  attr_reader :job_dir
+  attr_reader :dir
 
-  def efs_filepaths
+  def tokei_filepaths
     filepaths.map do |filepath|
       next if ignore_filepath?(filepath)
 
-      "#{efs_dir}/#{filepath}"
+      "#{dir}/#{filepath}"
     end.compact
   end
-
-  def efs_dir = "#{efs_tooling_jobs_dir}/#{job_dir}"
-  def efs_tooling_jobs_dir = ENV.fetch("EFS_DIR", "/mnt/tooling_jobs")
 
   private
   def ignore_filepath?(filepath) = ignore_rules.any? { |rule| File.fnmatch(rule, filepath) }

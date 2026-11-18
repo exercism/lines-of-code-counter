@@ -1,0 +1,7 @@
+{
+  "track_slug": "track-without-ignore",
+  "files": {
+    "leap.pony": "primitive Leap\n  fun apply(year: USize): Bool =>\n    let has_factor = {(n: USize)(year): Bool => (year % n) == 0 }\n    has_factor(4) and (not has_factor(100) or has_factor(400))\n",
+    "math.pony": "primitive Math\n  fun has_factor(n: USize)(year): Bool =>\n    (year % n) == 0\n"
+  }
+}

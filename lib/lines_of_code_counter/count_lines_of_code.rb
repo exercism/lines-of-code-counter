@@ -1,5 +1,9 @@
+require "open3"
+
 class CountLinesOfCode
   include Mandate
+
+  EMPTY_REPORT = { Total: { code: 0, blanks: 0, comments: 0, children: {} } }.freeze
 
   initialize_with :submission
 
@@ -17,7 +21,11 @@ class CountLinesOfCode
   private
   memoize
   def report
-    JSON.parse(`tokei --files #{submission.efs_filepaths.join(' ')} --output json`, symbolize_names: true)
+    # With no paths, tokei would scan the working directory.
+    return EMPTY_REPORT if submission.tokei_filepaths.empty?
+
+    output, = Open3.capture2("tokei", "--files", *submission.tokei_filepaths, "--output", "json")
+    JSON.parse(output, symbolize_names: true)
   end
 
   def code = report[:Total][:code]
@@ -27,7 +35,7 @@ class CountLinesOfCode
   def files
     report[:Total][:children].values.
       flatten.
-      map { |child| child[:name].delete_prefix("#{submission.efs_dir}/") }.
+      map { |child| child[:name].delete_prefix("#{submission.dir}/") }.
       sort.
       to_a
   end
