@@ -1,0 +1,7 @@
+{
+  "track_slug": "pharo-smalltalk",
+  "files": {
+    "TestResults.txt": "Tested on: 2021-06-03 16:11\n3 run, 3 passes, 0 skipped, 0 failures, 0 errors ",
+    "TwoFer.class.st": "\"\nI will return a message containing the given name, or a default value if no name given. \n\"\nClass {\n\t#name : #TwoFer,\n\t#superclass : #Object,\n\t#category : #'Exercise@TwoFer'\n}\n\n{ #category : #translating }\nTwoFer >> who [\n\t^ self who: 'you'.\n]\n\n{ #category : #translating }\nTwoFer >> who: name [ \n\t^ name isNil \n\t\tifTrue: [ self who ]\n\t\tifFalse: [ 'One for {1}, one for me.' format: {name} ].\n]\n"
+  }
+}
