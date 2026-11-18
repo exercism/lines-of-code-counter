@@ -42,11 +42,7 @@ container_port=9876
 
 # Build the Docker image, unless SKIP_BUILD is set
 if [[ -z "${SKIP_BUILD}" ]]; then
-    if [ -z "${LATEST_TOKEI_SHA}" ]; then
-        source ./bin/fetch-latest-tokei-sha.sh
-    fi
-
-    docker build --rm -t exercism/lines-of-code-counter --build-arg "TOKEI_SHA=${LATEST_TOKEI_SHA}" .
+    docker build --rm -t exercism/lines-of-code-counter .
 fi
 
 # Run the Docker image using the settings mimicking the production environment

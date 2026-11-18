@@ -12,8 +12,11 @@ RUN bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle install
 
-# We pin the SHA to allow us to bust the Docker cache
-ARG TOKEI_SHA
+# The exact commit of exercism/tokei (our fork) that we build and run.
+# This is the fork's master at the time it was pinned.
+# To move to a newer tokei, change this SHA in a PR, so the golden tests run before it can deploy.
+# Changing the SHA also busts the Docker cache for the tokei build.
+ARG TOKEI_SHA=1b423ca20090cad5b966729f1072b5ecb1cfb1d1
 RUN cargo install --git https://github.com/exercism/tokei --rev ${TOKEI_SHA} tokei
 
 FROM public.ecr.aws/lambda/ruby:4.0.2026.10.31.17 AS runtime

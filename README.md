@@ -67,6 +67,17 @@ Contributions are welcome!
 The actual counting of the LoC is done using [our fork][fork] of the [tokei][tokei] tool, which is both extremely fast and [supports many languages](https://github.com/XAMPPRocky/tokei#supported-languages).
 Please submit any PRs to both [our fork][fork] _and_ the [tokei repo][tokei].
 
+### Pinned tokei version
+
+The counter builds one exact commit of our fork, set as `TOKEI_SHA` in the `Dockerfile`.
+Every test and deploy build uses it, so a merge to the fork does not reach production until this repo changes the SHA.
+
+To move to a newer tokei:
+
+1. Merge your change to the `master` branch of [our fork][fork].
+2. Open a PR here that changes `TOKEI_SHA` in the `Dockerfile` to the new commit's SHA.
+3. Check that the golden tests pass on the PR. Merging it deploys the new version.
+
 [test-runners]: https://github.com/exercism/automated-tests/blob/master/docs/introduction.md
 [golden]: https://ro-che.info/articles/2017-12-04-golden-tests
 [exercism]: https://exercism.io
