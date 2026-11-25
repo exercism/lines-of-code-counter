@@ -38,13 +38,17 @@ class ProcessRequest
       filepaths = files.keys.map(&:to_s)
       filepaths.each { |filepath| validate_filepath!(filepath) }
 
-      files.each do |filepath, file_content|
-        path = File.join(dir, filepath.to_s)
-        FileUtils.mkdir_p(File.dirname(path))
-        File.write(path, file_content)
-      end
+      submission = Submission.new(dir, filepaths, body[:track_slug])
+      write_files(files, submission)
+      CountLinesOfCode.(submission)
+    end
+  end
 
-      CountLinesOfCode.(Submission.new(dir, filepaths, body[:track_slug]))
+  def write_files(files, submission)
+    files.each do |filepath, file_content|
+      path = File.join(submission.dir, submission.tokei_filepath(filepath.to_s))
+      FileUtils.mkdir_p(File.dirname(path))
+      File.write(path, file_content)
     end
   end
 

@@ -35,7 +35,7 @@ class CountLinesOfCode
   def files
     report[:Total][:children].values.
       flatten.
-      map { |child| child[:name].delete_prefix("#{submission.dir}/") }.
+      map { |child| submission.original_filepath(child[:name].delete_prefix("#{submission.dir}/")) }.
       sort.
       to_a
   end
