@@ -31,20 +31,24 @@ class ProcessRequest
   end
 
   def counts
-    files = body[:files]
-    raise InvalidRequest, "files must be an object of paths to string contents" unless files.is_a?(Hash) && files.values.all?(String)
+    filepaths = files.keys.map(&:to_s)
+    filepaths.each { |filepath| validate_filepath!(filepath) }
 
     Dir.mktmpdir("lines-of-code-counter") do |dir|
-      filepaths = files.keys.map(&:to_s)
-      filepaths.each { |filepath| validate_filepath!(filepath) }
-
       submission = Submission.new(dir, filepaths, body[:track_slug])
-      write_files(files, submission)
+      write_files(submission)
       CountLinesOfCode.(submission)
     end
   end
 
-  def write_files(files, submission)
+  def files
+    files = body[:files]
+    raise InvalidRequest, "files must be an object of paths to string contents" unless files.is_a?(Hash) && files.values.all?(String)
+
+    files
+  end
+
+  def write_files(submission)
     files.each do |filepath, file_content|
       path = File.join(submission.dir, submission.tokei_filepath(filepath.to_s))
       FileUtils.mkdir_p(File.dirname(path))
