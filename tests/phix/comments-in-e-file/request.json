@@ -1,0 +1,6 @@
+{
+  "track_slug": "phix",
+  "files": {
+    "hamming.e": "-- Hamming distance\n// more comments\n/* block\ncomment */\n\nglobal function distance(string a, string b)\n    return 0\nend function\n"
+  }
+}
