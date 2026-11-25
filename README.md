@@ -25,6 +25,23 @@ As an example, the C# track excludes old `*Test.cs` files (renamed since to `*Te
 *Test.cs
 ```
 
+### Change a file's extension for tokei
+
+Tokei picks a language from a file's extension.
+If two languages claim the same extension, tokei always picks one of them.
+For example, Elixir and Euphoria both use `.ex`, and tokei counts those files as Elixir.
+
+To make tokei pick another language for a track, define a `<slug>.extensions` file inside the `tracks` directory (e.g. [`tracks/euphoria.extensions`](./tracks/euphoria.extensions)).
+Each line has the form `<extension>=<new extension>`, without dots.
+When the counter writes a submission's files to the temporary directory, it adds the new extension to the end of the name of every file with a listed extension.
+Tokei then sees the new extension, and the counter turns the name back into the student's file name in the response.
+
+The Euphoria track uses `.ex` for its solutions, so it maps them to `.e`, which tokei counts as Euphoria:
+
+```
+ex=e
+```
+
 ## Request format
 
 The Lambda takes a request body with the track slug and the contents of the files: `{"track_slug": "ruby", "files": {"lib/bob.rb": "<file content>"}}`.

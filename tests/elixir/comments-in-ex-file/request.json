@@ -1,0 +1,6 @@
+{
+  "track_slug": "elixir",
+  "files": {
+    "lib/hamming.ex": "# Hamming distance\n# more comments\ndefmodule Hamming do\n  def distance(a, b) do\n    0\n  end\nend\n"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "track_slug": "euphoria",
+  "files": {
+    "hamming.ex": "-- Hamming distance\n-- more comments\ninclude std/console.e\n\n/* block\ncomment */\npublic function distance(sequence a, sequence b)\n    return 0\nend function\n"
+  }
+}
