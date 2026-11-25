@@ -1,0 +1,9 @@
+{
+  "statusCode": 200,
+  "statusDescription": "200 OK",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false,
+  "body": "{\"counts\":{\"code\":3,\"blanks\":1,\"comments\":4},\"files\":[\"hamming.e\"]}"
+}

@@ -42,6 +42,8 @@ The Euphoria track uses `.ex` for its solutions, so it maps them to `.e`, which 
 ex=e
 ```
 
+The Phix track uses `.e` for its solutions, which tokei counts as Euphoria, so `tracks/phix.extensions` maps them to `.exw`, which tokei counts as Phix.
+
 ## Request format
 
 The Lambda takes a request body with the track slug and the contents of the files: `{"track_slug": "ruby", "files": {"lib/bob.rb": "<file content>"}}`.
